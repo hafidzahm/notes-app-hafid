@@ -1,4 +1,5 @@
 // import notesData from './notes.js';
+import '../src/script/components/index.js'
 const notesData = [
   {
     id: 'notes-jT-jjsyz61J8XKiI',
