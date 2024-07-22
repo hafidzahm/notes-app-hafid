@@ -107,4 +107,10 @@ const notesData = [
   ];
   
   console.log(notesData);
+  class NotesData {
+    static getAll() {
+      return notesData;
+    }
+  }
   
+  export default NotesData;

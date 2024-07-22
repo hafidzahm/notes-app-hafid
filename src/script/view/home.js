@@ -1,5 +1,5 @@
 // import notesData from './notes.js';
-import '../src/script/components/index.js'
+import '../components/index.js'
 const notesData = [
   {
     id: 'notes-jT-jjsyz61J8XKiI',
@@ -107,10 +107,13 @@ const notesData = [
     archived: false,
   },
 ]
-const RENDER_EVENT = 'render-notes';
+
+
+
+const home = () => {
 
 function addNote() {
-  // const id = `notes-${Math.random().toString(36).substr(2, 9)}`
+
   const id = generateId();
   const noteTitle = document.getElementById('title-note').value;
   const noteBody = document.getElementById('body-note').value;
@@ -163,34 +166,15 @@ listNoteContainer.classList.add('container-list-note')
 listNoteContainer.append(noteContainer);
 listNoteContainer.setAttribute('id', `note-${noteObject.id}`)
 return listNoteContainer;
-// document.dispatchEvent(new Event (RENDER_EVENT));
+
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   const input = document.querySelector('input');
-//   const errorMessage = document.getElementById('title_notes_verif');
-//   const requireTitle = document.getElementById('title_required');
-//   input.addEventListener('input', function() {
-//     if (input.textLength <= 3) {
-//       errorMessage.setAttribute('class', 'visible')
-//       requireTitle.setAttribute('class', 'none');
-//     } else if (input.textLength == 0) {
-//       errorMessage.setAttribute('class', 'none')
-//       requireTitle.setAttribute('class', 'visible');
-//     } else if (input.textLength >= 3) {
-//       errorMessage.setAttribute('class', 'none')
-//       requireTitle.setAttribute('class', 'none');
-//     }
-//   }) 
-// })
+  const noteForm = document.getElementById('form')
+  noteForm.addEventListener('submit', function (event) {
+      submit.preventDefault();
+      addNote()
+  })
 
-document.addEventListener('DOMContentLoaded', function () {
-    const noteForm = document.getElementById('form')
-    noteForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        addNote()
-    })
-});
 
 // document.addEventListener('DOMContentLoaded', function () {
 //   const formButton = document.getElementById('add-note-button')
@@ -240,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
   })
 
-document.addEventListener(RENDER_EVENT, function () {
   console.log(notesData);
   const allNOTEList = document.getElementById('note-list-container')
   allNOTEList.innerHTML = '';
@@ -250,5 +233,9 @@ document.addEventListener(RENDER_EVENT, function () {
   }
 
   
-});
 
+
+
+}
+
+export default home
