@@ -15,31 +15,7 @@
     </header>
 
     <main>
-      <div id="form-spin">
-        <form id="form">
-          <div class="form-title">
-            <label for="title">Judul catatan</label>
-            <input
-              type="text"
-              name="title-note"
-              id="title-note"
-              required
-              minlength="3"
-              aria-describedby="inputValidation"
-            />
-            <p id="inputValidation" class="validation-message"></p>
-          </div>
-          
-
-          <div class="form-body">
-            <label for="note">Catatan</label>
-            <textarea cols="1000" name="body-note" id="body-note"></textarea>
-          </div>
-          <div class="form-button">
-            <button class="button submit-button">Simpan catatan</button>
-          </div>
-        </form>
-      </div>
+      <note-form></note-form>
 
       <div class="note-data">
         <section id="notes" class="notes">

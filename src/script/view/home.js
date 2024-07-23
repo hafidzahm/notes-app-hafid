@@ -1,4 +1,3 @@
-// import notesData from './notes.js';
 import '../components/index.js'
 import NotesData from'../data/local/notes.js'
 const notes = NotesData.getAll();
