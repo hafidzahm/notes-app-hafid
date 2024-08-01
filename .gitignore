@@ -1,5 +1,7 @@
 ##IDE
-.vscode
+.vscode/
 
 node_modules/
+
+.prettierignore
 

@@ -1,19 +1,19 @@
 class AppBar extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.render();
-    }
+    this.render();
+  }
 
-    render() {
-        this.innerHTML = `
+  render() {
+    this.innerHTML = `
         
         <div class="app-bar">
             <div class="app-name"><span id="notes-text">Notes</span><span id="app-text">App </span></div>
         </div>
         
-        `
-    }
+        `;
+  }
 }
 
-customElements.define('app-bar', AppBar)
+customElements.define("app-bar", AppBar);

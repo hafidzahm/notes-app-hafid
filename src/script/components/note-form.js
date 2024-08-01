@@ -1,11 +1,11 @@
-class NoteForm extends HTMLElement{
-    constructor() {
-        super();
+class NoteForm extends HTMLElement {
+  constructor() {
+    super();
 
-        this.render();
-    }
-    render() {
-        this.innerHTML = `
+    this.render();
+  }
+  render() {
+    this.innerHTML = `
         <div id="form-spin">
         <form id="form">
           <div class="form-title">
@@ -30,9 +30,8 @@ class NoteForm extends HTMLElement{
             <button class="button submit-button">Simpan catatan</button>
           </div>
         </form>
-      </div>`
-
-    }
+      </div>`;
+  }
 }
 
-customElements.define('note-form', NoteForm)
+customElements.define("note-form", NoteForm);

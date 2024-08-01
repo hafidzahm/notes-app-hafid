@@ -1,11 +1,8 @@
 VERSI PERTAMA MODULE BUNDLER
 
-
-
-
-
 CAT
 1/8/2024
+
 1. INSTALASI NPM
 2. INSTALASI JQUERY DI DEPENDENCIES
 3. INSTALASI WEBPACK DI DEVDEP
@@ -18,9 +15,7 @@ CAT
 10. html-webpack-plugin --save-dev
 11. webpack-dev-server --save-dev
 12. webpack-merge --save-dev
-13. konfigurasi webpack.prod/dev/common.js 
+13. konfigurasi webpack.prod/dev/common.js
 14. tambah node_module di .gitignore
 15. tambah script start-dev & build
-----END-----
-
-
+    ----END-----

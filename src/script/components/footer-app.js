@@ -1,12 +1,12 @@
-class FooterApp extends HTMLElement{
-    constructor() {
-        super();
+class FooterApp extends HTMLElement {
+  constructor() {
+    super();
 
-        this.render();
-    }
+    this.render();
+  }
 
-    render() {
-        this.innerHTML = `
+  render() {
+    this.innerHTML = `
         <div class="footer-app">
             <h1 class="app-footer">Notes App, 2024</h1>
             <h2 class="app-desc">Abdul Hafizh Mahfudin</h2>
@@ -14,8 +14,8 @@ class FooterApp extends HTMLElement{
         
         
         
-        `
-    }
+        `;
+  }
 }
 
-customElements.define('footer-app', FooterApp)
+customElements.define("footer-app", FooterApp);
