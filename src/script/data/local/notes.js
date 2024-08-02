@@ -1,4 +1,4 @@
-const notesData = [
+export default [
   {
     id: "notes-jT-jjsyz61J8XKiI",
     title: "Welcome to Notes, Dimas!",
@@ -105,12 +105,3 @@ const notesData = [
     archived: false,
   },
 ];
-
-console.log(notesData);
-class NotesData {
-  static getAll() {
-    return notesData;
-  }
-}
-
-export default NotesData;

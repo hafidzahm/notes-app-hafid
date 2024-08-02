@@ -19,3 +19,8 @@ CAT
 14. tambah node_module di .gitignore
 15. tambah script start-dev & build
     ----END-----
+
+    2/8
+    web compo note-item
+
+    BUG: datecreated & note-form (css)

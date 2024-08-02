@@ -12,6 +12,10 @@ body {
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* note-item{
+  display: grid;
+} */
+
 /* main {
   display: grid;
   grid-template-columns: 1fr;
@@ -243,7 +247,7 @@ textarea {
 .noteListContainer {
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
   align-items: center;
   gap: 5px;
   background-color: #ef9c66;
@@ -259,7 +263,6 @@ textarea {
   border-radius: 15px;
   gap: 2.5px;
   padding: 10px;
-  height: fit-content;
   transition-duration: 0.4s;
   cursor: pointer;
 }

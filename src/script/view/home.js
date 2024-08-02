@@ -1,23 +1,26 @@
 import "../components/index.js";
-import NotesData from "../data/local/notes.js";
-const notes = NotesData.getAll();
+import dummies from "../data/local/notes.js";
+import formValidation from "../components/form-validation.js";
+let notesData = [];
+const RENDER_EVENT = "RENDER_EVENT";
 
 const home = () => {
   function addNote() {
     const id = generateId();
-    const noteTitle = document.getElementById("title-note").value;
-    const noteBody = document.getElementById("body-note").value;
-    const createdAt = new Date().toISOString();
-    const archived = false;
+    const title = document.getElementById("title-note").value;
+    const body = document.getElementById("body-note").value;
+    const createdAt = generateDate();
+    const isArchived = false;
 
-    const noteObject = generateNoteObject(
+    const noteObject = {
       id,
-      noteTitle,
-      noteBody,
+      title,
+      body,
       createdAt,
-      archived,
-    );
-    notes.push(noteObject);
+      isArchived,
+    };
+
+    notesData.push(noteObject);
 
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
@@ -27,100 +30,57 @@ const home = () => {
     return `notes-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  function generateNoteObject(id, title, body, createdAt, archived) {
-    return {
-      id,
-      title,
-      body,
-      createdAt,
-      archived,
-    };
+  function generateDate() {
+    const tanggal = new Date().toLocaleString();
+    return `Dibuat pada tanggal ${tanggal}`;
   }
 
-  function makeNote(noteObject) {
-    const noteTitle = document.createElement("h1");
-    noteTitle.innerText = noteObject.title;
+  function makeNote(noteItem) {
+    const noteVariabel = document.createElement("note-item");
 
-    const createdAt = document.createElement("h3");
-    const tanggal = new Date(noteObject.createdAt);
-    const tanggalString = tanggal.toLocaleString();
-    createdAt.innerText = `Dibuat pada tanggal ${tanggalString}`;
-
-    const noteBody = document.createElement("h2");
-    noteBody.innerText = noteObject.body;
-
-    const archived = document.createElement("p");
-    archived.innerText = noteObject.archived;
-    archived.classList.add("hidden");
-
-    const noteContainer = document.createElement("div");
-    noteContainer.classList.add("container-note");
-    noteContainer.append(noteTitle, createdAt, noteBody, archived);
-
-    const listNoteContainer = document.createElement("div");
-    listNoteContainer.classList.add("container-list-note");
-    listNoteContainer.append(noteContainer);
-    listNoteContainer.setAttribute("id", `note-${noteObject.id}`);
-    return listNoteContainer;
+    noteVariabel.setAttribute("id", noteItem.id);
+    noteVariabel.setAttribute("title", noteItem.title);
+    noteVariabel.setAttribute("createdAt", noteItem.createdAt);
+    noteVariabel.setAttribute("body", noteItem.body);
+    noteVariabel.setAttribute("isArchived", noteItem.isArchived);
+    noteVariabel.addEventListener("book-delete", (event) => {
+      const noteId = event.detail.id;
+      deleteNote(noteId);
+    });
+    return noteVariabel;
   }
 
+  function saveToStorage() {
+    localStorage.setItem("notes", JSON.stringify(notesData));
+  }
   const noteForm = document.getElementById("form");
   noteForm.addEventListener("submit", function (event) {
-    submit.preventDefault();
+    event.preventDefault();
     addNote();
+    saveToStorage();
+    noteForm.reset();
   });
 
-  // document.addEventListener('DOMContentLoaded', function () {
-  //   const formButton = document.getElementById('add-note-button')
-  //   formButton.addEventListener('click', function () {
-  //     const formVisible = document.getElementById('form-spin')
-  //     formVisible.setAttribute('class','visible')
-  // })
+  document.addEventListener(RENDER_EVENT, function () {
+    const noteContainer = document.getElementById("note-list-container");
+    noteContainer.innerHTML = "";
 
-  // });
-
-  const form = document.querySelector("form");
-  const input = document.querySelector("input");
-
-  form.addEventListener("submit", (event) => event.preventDefault());
-
-  const inputValidationHandler = (event) => {
-    event.target.setCustomValidity("");
-    if (event.target.validity.valueMissing) {
-      event.target.setCustomValidity("Wajib diisi, jangan dikosongin yak!");
-      return;
+    for (const noteItem of notesData) {
+      noteContainer.append(makeNote(noteItem));
     }
+  });
 
-    if (event.target.validity.tooShort) {
-      event.target.setCustomValidity("Diisi minimal 3 karakter yak!");
-      return;
-    }
-  };
+  document.addEventListener("DOMContentLoaded", () => {
+    formValidation();
 
-  input.addEventListener("change", inputValidationHandler);
-  input.addEventListener("invalid", inputValidationHandler);
-  input.addEventListener("blur", (event) => {
-    const isValid = event.target.validity.valid;
-    const errorMessage = event.target.validationMessage;
-    const connectedValidationEl = inputValidation
-      ? document.getElementById("inputValidation")
-      : null;
-
-    if (connectedValidationEl && errorMessage && !isValid) {
-      connectedValidationEl.innerText = errorMessage;
-      console.log(errorMessage);
+    if (!localStorage.getItem("notes")) {
+      localStorage.setItem("notes", JSON.stringify(dummies));
+      notesData = JSON.parse(localStorage.getItem("notes"));
     } else {
-      connectedValidationEl.innerText = "";
+      notesData = JSON.parse(localStorage.getItem("notes")) || [];
     }
+    document.dispatchEvent(new Event(RENDER_EVENT));
   });
-
-  console.log(notes);
-  const allNOTEList = document.getElementById("note-list-container");
-  allNOTEList.innerHTML = "";
-  for (const noteItem of notes) {
-    const noteElement = makeNote(noteItem);
-    allNOTEList.append(noteElement);
-  }
 };
 
 export default home;
