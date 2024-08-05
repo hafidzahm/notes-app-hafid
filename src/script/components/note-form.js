@@ -12,8 +12,8 @@ class NoteForm extends HTMLElement {
             <label for="title">Judul catatan</label>
             <input
               type="text"
-              name="title-note"
-              id="title-note"
+              name="title"
+              id="title"
               required
               minlength="3"
               aria-describedby="inputValidation"
@@ -24,7 +24,7 @@ class NoteForm extends HTMLElement {
 
           <div class="form-body">
             <label for="note">Catatan</label>
-            <textarea cols="1000" name="body-note" id="body-note"></textarea>
+            <textarea cols="1000" name="body" id="body"></textarea>
           </div>
           <div class="form-button">
             <button class="button submit-button">Simpan catatan</button>
