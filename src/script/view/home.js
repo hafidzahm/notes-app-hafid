@@ -2,9 +2,6 @@ import "../components/index.js";
 import dummies from "../data/local/notes.js";
 import formValidation from "../components/form-validation.js";
 let notesData = [];
-const RENDER_EVENT = "RENDER_EVENT";
-
-const home = () => {
   function addNote() {
     const id = generateId();
     const title = document.getElementById("title-note").value;
