@@ -9,55 +9,6 @@ const RENDER_EVENT = "RENDER_EVENT";
 const baseUrl = "https://notes-api.dicoding.dev/v2";
 
 const home = async () => {
-  //   const getAllNotes = async () => {
-  //     fetch(`${baseUrl}/notes`)
-  //     .then((response) => {
-  //       if (response.status >= 200 && response.status < 300) {
-  //         return response.json();
-  //       } else {
-  //         return Promise.reject(new Error(`Something went wrong`));
-  //       }
-  //       })
-
-  //       .then((responseJson) => {
-  //         const { noteObject } = responseJson;
-
-  //         if (notes.length > 0) {
-  //           return Promise.resolve(notes);
-  //         } else {
-  //           return Promise.reject(new Error(`note not found`));
-  //         }
-
-  //       });
-
-  //     // try {
-  //     //   const options = {
-  //     //     method: 'GET',
-  //     // };
-  //     //     const response = await fetch(`${baseUrl}/notes`);
-  //     //     const responseJson = await response.json();
-
-  //     //     // if (responseJson.error) {
-  //     //     //     showResponseMessage(responseJson.message);
-  //     //     //   } else {
-  //     //     //     makeNote(responseJson.data);
-  //     //     //     console.log("WOY");
-  //     //     //   }
-
-  //     //     if (response.status >= 200 && response.status < 300) {
-  //     //       return response.json();
-
-  //     //     } else {
-  //     //       return Promise.reject(new Error(`Something went wrong`));
-  //     //     }
-
-  //     //     }
-
-  //     //     catch (error)  {
-  //     //     showResponseMessage(error);
-  //     // }
-  // };
-
   const addNoteApi = async (noteObject) => {
     try {
       const options = {
@@ -80,7 +31,7 @@ const home = async () => {
     }
   };
 
-  //   Gunakan Fungsi ini untuk pengambil data dari API
+  //   Gunakan Fungsi ini untuk mengambil data dari API
   const getAllNotes = () => {
     return fetch(`${baseUrl}/notes`)
       .then((response) => {
@@ -95,6 +46,30 @@ const home = async () => {
         return Promise.resolve(notes);
       });
   };
+
+  const deleteNoteApi = (noteId) => {
+    return fetch(`${baseUrl}/notes/${noteId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 300) {
+
+          return response.json();
+        } else {
+          return Promise.reject(new Error(`Something went wrong`));
+        }
+      })
+      .then((responseJson) => {
+        if (responseJson.length < 0) {
+          return Promise.resolve(responseJson);
+        } else {
+          return Promise.reject(new Error(`Note is not found`));
+        }
+        
+      });
+  }
+
+
 
   async function addNote() {
     const id = generateId();
@@ -113,17 +88,22 @@ const home = async () => {
     );
     try {
       await addNoteApi(noteObject);
+      console.log(`noteId: "${noteObject.id}" with title "${noteObject.title}" added`)
+      console.log(JSON.parse(JSON.stringify(noteObject)));
+      console.log('-----addNoteEv:Note added-----')
 
       notes.push(noteObject);
+      console.log(notes)
 
-      document.dispatchEvent(new Event(RENDER_EVENT));
+      
     } catch (error) {
       console.error("error adding note:", error);
     }
+    document.dispatchEvent(new Event(RENDER_EVENT));
   }
 
   function generateId() {
-    // notes-${Math.random().toString(36).substr(2, 9)};
+   
     return `notes-${Math.random().toString(36).substr(2, 9)}`;
   }
 
@@ -142,12 +122,6 @@ const home = async () => {
     };
   }
 
-  // const notes = await getAllNotes();
-  // notes.forEach(note => {
-  //   const noteElement = makeNote(note);
-  //   document.getElementById("note-list-container").append(noteElement);
-  // })
-
   function makeNote(noteObject) {
     const noteVariabel = document.createElement("note-item");
 
@@ -156,14 +130,74 @@ const home = async () => {
     noteVariabel.setAttribute("createdAt", noteObject.createdAt);
     noteVariabel.setAttribute("body", noteObject.body);
     noteVariabel.setAttribute("isArchived", noteObject.isArchived);
+    noteVariabel.addEventListener("book-delete", (event) => {
+      const noteId = noteObject.id;
+      deleteNote(noteId);
+      console.log(`-----deleteNote event: ${noteId} deleted-----`)
+      console.log("ev: deleteEvent initialized")
+    })
+
     return noteVariabel;
   }
+
+
+ async function deleteNote(noteId) {
+    const noteTarget = findNoteTarget(noteId);
+    console.log(`noteId: ${noteId}`)
+
+    try{
+      await deleteNoteApi(noteId)
+      if (noteTarget === -1) return;
+      notes.splice(noteTarget, 1);
+      
+      console.log("async delete initialized=====")
+    } catch (error) {
+      console.error("error deleting note:", error);
+    }
+
+    document.dispatchEvent(new Event(RENDER_EVENT));
+
+  }
+
+  function findNoteTarget(noteId) {
+    for (const index in notes) {
+      if (notes[index].id === noteId) {
+          return index;
+      }
+  }
+  return -1
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   function saveToStorage() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }
 
-  document.addEventListener(RENDER_EVENT, async function () {
+  const showResponseMessage = (message = "Check your internet connection") => {
+    alert(message);
+  };
+
+  //RENDER EVENT
+ document.addEventListener(RENDER_EVENT, async function () {
     const noteContainer = document.getElementById("note-list-container");
     noteContainer.innerHTML = "";
 
@@ -179,17 +213,13 @@ const home = async () => {
         const noteElement = makeNote(note);
         document.getElementById("note-list-container").append(noteElement);
       });
+
     } catch (error) {
       console.error("error fetching notes:", error);
     }
-
-    // addNote();
   });
 
-  const showResponseMessage = (message = "Check your internet connection") => {
-    alert(message);
-  };
-
+//DOM
   document.addEventListener("DOMContentLoaded", async () => {
     formValidation();
 
@@ -209,18 +239,8 @@ const home = async () => {
       event.preventDefault();
       await addNote();
       noteForm.reset();
-      // getAllNotes();
     });
-
-    // if (!localStorage.getItem("notes")) {
-    //   localStorage.setItem("notes", JSON.stringify(dummies));
-    //   notes = JSON.parse(localStorage.getItem("notes"));
-    // } else {
-    //   notes = JSON.parse(localStorage.getItem("notes")) || [];
-    // }
   });
-  // getAllNotes();
-  // makeNote()
 };
 
 export default home;

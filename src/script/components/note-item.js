@@ -17,6 +17,7 @@ class NoteItem extends HTMLElement {
 
   handleDelete() {
     const id = parseInt(event.target.dataset.id);
+    console.log('ev: handleDelete clicked')
     this.dispatchEvent(
       new CustomEvent("book-delete", {
         detail: {
@@ -26,22 +27,26 @@ class NoteItem extends HTMLElement {
       }),
     );
   }
+
+
   connectedCallback() {
     this.render();
+    console.log("ev: handleDelete connected")
     const deleteButton = this.querySelector("delete-button");
-    if (deleteButton) {
+
       deleteButton.addEventListener("click", this.handleDelete);
-    }
+
   }
 
   disconnectedCallback() {
     const deleteButton = this.querySelector("delete-button");
 
     deleteButton.removeEventListener("click", this.handleDelete);
+    console.log("ev: handleDelete disconnected")
   }
 
   render() {
-    console.log("sok bisa gaskan note-item");
+    console.log("ev: Note rendered-----");
     this.innerHTML = `
 
 
