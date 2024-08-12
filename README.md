@@ -24,3 +24,7 @@ CAT
     web compo note-item
 
     BUG: datecreated & note-form (css)
+
+    12/8
+
+    bug: archive&unarchive tdk muncul
