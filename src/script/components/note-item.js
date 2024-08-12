@@ -10,16 +10,44 @@ class NoteItem extends HTMLElement {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this["_createdAt"] = this.getAttribute("createdAt");
+    this._createdAt = new Date().toLocaleString()
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isArchived");
   }
 
+
+
+
+  connectedCallback() {
+    this.render();
+    const deleteButton = this.querySelector("delete-button")
+
+        
+   
+      deleteButton.addEventListener("click", this.handleDelete.bind(this));
+    
+    
+
+
+
+  }
+
+  disconnectedCallback() {
+    const deleteButton = this.querySelector("delete-button")
+
+
+          deleteButton.removeEventListener("click", this.handleDelete.bind(this));
+
+
+
+  }
+
   handleDelete() {
-    const id = parseInt(event.target.dataset.id);
+    const id = this._id
+    console.log(id)
     console.log('ev: handleDelete clicked')
     this.dispatchEvent(
-      new CustomEvent("book-delete", {
+      new CustomEvent("note-delete", {
         detail: {
           id,
         },
@@ -28,47 +56,31 @@ class NoteItem extends HTMLElement {
     );
   }
 
-
-  connectedCallback() {
-    this.render();
-    console.log("ev: handleDelete connected")
-    const deleteButton = this.querySelector("delete-button");
-
-      deleteButton.addEventListener("click", this.handleDelete);
-
-  }
-
-  disconnectedCallback() {
-    const deleteButton = this.querySelector("delete-button");
-
-    deleteButton.removeEventListener("click", this.handleDelete);
-    console.log("ev: handleDelete disconnected")
-  }
-
   render() {
-    console.log("ev: Note rendered-----");
+    console.log("basic-notes-rendered")
     this.innerHTML = `
 
 
 
 
-          <div id="note-list-container" class="noteListContainer">
+         
           <div id=${this._id} class="container-list-note">
+
           <div class="container-note">
-          <h1>${this._title}</h1>
-          <h3>                        
+           <h1>${this._title}</h1>
+           <h3>                        
           Dibuat pada tanggal:
-          ${new Date(this["_createdAt"]).toLocaleDateString("id-ID", {
-            dateStyle: "full",
-          })}</h3>
-          <h2>${this._body}</h2>
-          <p class="hidden">${this._isArchived}</p>
-          <delete-button id=${this._id}></delete-button>
-          
+          ${this._createdAt}</h3>
+            <h2>${this._body}</h2>
+            <p>${this._isArchived}</p>
           </div>
 
+          <div class="button-container">
+          <delete-button></delete-button>
           </div>
-        </div>
+          
+          </div>
+      
           
           `;
   }

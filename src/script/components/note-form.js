@@ -26,9 +26,22 @@ class NoteForm extends HTMLElement {
             <label for="note">Catatan</label>
             <textarea cols="1000" name="body" id="body"></textarea>
           </div>
-          <div class="form-button">
-            <button class="button submit-button">Simpan catatan</button>
+          <!-- checkbox note isArchived -->
+          <div class="checkbox-element">
+              <label for="isArchived">Arsipkan Catatan</label>
+              <input id="isArchived" type="checkbox"></input>
           </div>
+
+          <div class="form-button">
+          <button
+            class="button submit-button"
+            id="submit-button"
+            type="submit">
+            Simpan catatan
+          </button>
+          </div>
+
+        
         </form>
       </div>`;
   }

@@ -1,19 +1,21 @@
 class DeleteButton extends HTMLElement {
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({ mode: "open" });
+
+    this.render();
+
   }
 
-  connectedCallback() {
-    this.render();
-  }
+
+
+
 
   render() {
-    this._shadowRoot.innerHTML = `
+    this.innerHTML = `
             <style>
                 button {
-                    color: #fff;
-                    background-color: #d9534f;
+                    color: blue;
+                    background-color: green;
                     border-color: #d43f3a;
                     width:100%;
                     padding: 6px;
@@ -22,7 +24,7 @@ class DeleteButton extends HTMLElement {
                     cursor: pointer;
                 }
             </style>
-            <button>Hapus Buku</button>
+            <button class="delete-button">Hapus catatan</button>
         `;
   }
 }
