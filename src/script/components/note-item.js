@@ -62,7 +62,7 @@ class NoteItem extends HTMLElement {
           </div>
 
           <div class="button-container">
-          <archive-button></archive-button>
+          
           <delete-button></delete-button>
           
           </div>
@@ -71,6 +71,15 @@ class NoteItem extends HTMLElement {
       
           
           `;
+console.log("STATUS_isArchived_buttonLogic")
+console.log(this._isArchived);
+          const archiveButton = document.createElement("archive-button");
+          const unarchiveButton = document.createElement("unarchive-button");
+          if (!this._isArchived) {
+            this.querySelector(".button-container").append(unarchiveButton);
+          } else {
+            this.querySelector(".button-container").append(archiveButton);
+          }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

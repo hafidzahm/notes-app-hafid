@@ -39,7 +39,6 @@ class NoteItem extends HTMLElement {
     <note-item>
     <div class="button-container">
 
-    <unarchive-button></unarchive-button>
     </div>
     </note-item>
 
@@ -47,6 +46,8 @@ class NoteItem extends HTMLElement {
       
           
           `;
+          const archiveButton = document.createElement("archive-button");
+this.querySelector(".button-container").append(archiveButton);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

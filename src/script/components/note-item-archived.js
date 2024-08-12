@@ -34,13 +34,14 @@ class NoteArchived extends HTMLElement {
           <note-item>
           <div class="button-container">
 
-          <unarchive-button></unarchive-button>
+
           </div>
           
           </note-item>
         </div>
           
           `;
+
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
