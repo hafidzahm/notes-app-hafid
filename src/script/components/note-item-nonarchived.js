@@ -37,7 +37,10 @@ class NoteItem extends HTMLElement {
          
     <div id="note-list-container" class="noteListContainer">
     <note-item>
-    ${this._button}
+    <div class="button-container">
+
+    <unarchive-button></unarchive-button>
+    </div>
     </note-item>
 
   </div>

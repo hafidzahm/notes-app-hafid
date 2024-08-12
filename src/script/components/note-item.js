@@ -62,7 +62,9 @@ class NoteItem extends HTMLElement {
           </div>
 
           <div class="button-container">
+          <archive-button></archive-button>
           <delete-button></delete-button>
+          
           </div>
           
           </div>

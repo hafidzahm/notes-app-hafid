@@ -43,7 +43,7 @@ class UnarchiveButton extends HTMLElement {
   }
 
   render() {
-    this._innerHTML = `
+    this.innerHTML = `
             <style>
                 button {
                     color: blue;

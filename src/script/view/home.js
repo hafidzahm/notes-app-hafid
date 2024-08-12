@@ -364,15 +364,7 @@ const home = async () => {
     const noteContainer = document.getElementById("note-list-container");
     noteContainer.innerHTML = "";
 
-    for (const note of notes) {
-      const noteElement = makeNote(note);
-      if (!note.isArchived) {
-        console.log();
-        noteContainer.append(noteElement);
-      } else {
-        archivedNoteContainer.append(noteElement);
-      }
-    }
+
 
     console.log("render");
 

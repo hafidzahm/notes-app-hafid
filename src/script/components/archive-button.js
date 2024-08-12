@@ -35,7 +35,7 @@ class ArchiveButton extends HTMLElement {
   }
 
   render() {
-    this._innerHTML = `
+    this.innerHTML = `
             <style>
                 button {
                     color: blue;
