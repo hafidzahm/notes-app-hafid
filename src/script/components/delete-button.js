@@ -3,12 +3,7 @@ class DeleteButton extends HTMLElement {
     super();
 
     this.render();
-
   }
-
-
-
-
 
   render() {
     this.innerHTML = `

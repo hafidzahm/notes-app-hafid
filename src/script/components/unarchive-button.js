@@ -1,35 +1,37 @@
 class UnarchiveButton extends HTMLElement {
   constructor() {
     super();
-
   }
 
   connectedCallback() {
     this.render();
-    const unarchiveButton = this.querySelector("button")
+    const unarchiveButton = this.querySelector("button");
     if (unarchiveButton) {
-   unarchiveButton.addEventListener("click", this.handleUnarchive.bind(this));
-      console.log("ev: handleUnarchive connected")
-
-
+      unarchiveButton.addEventListener(
+        "click",
+        this.handleUnarchive.bind(this),
+      );
+      console.log("ev: handleUnarchive connected");
     }
     unarchiveButton.addEventListener("click", this.handleUnarchive.bind(this));
-    console.log("ev: handleUnarchive connected")
+    console.log("ev: handleUnarchive connected");
   }
 
   disconnectedCallback() {
-    const unarchiveButton = this.querySelector("button")
+    const unarchiveButton = this.querySelector("button");
     if (unarchiveButton) {
-      unarchiveButton.removeEventListener("click", this.handleUnarchive.bind(this));
-      console.log("ev: handleUnarchive disconnected")
-
+      unarchiveButton.removeEventListener(
+        "click",
+        this.handleUnarchive.bind(this),
+      );
+      console.log("ev: handleUnarchive disconnected");
     }
   }
 
   handleUnarchive() {
     const id = parseInt(event.target.dataset.id);
-    console.log(id)
-    console.log('ev: handleArchive clicked')
+    console.log(id);
+    console.log("ev: handleArchive clicked");
     this.dispatchEvent(
       new CustomEvent("book-unarchive", {
         detail: {

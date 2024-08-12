@@ -10,42 +10,28 @@ class NoteItem extends HTMLElement {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this._createdAt = new Date().toLocaleString()
+    this._createdAt = new Date().toLocaleString();
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isArchived");
   }
 
-
-
-
   connectedCallback() {
     this.render();
-    const deleteButton = this.querySelector("delete-button")
+    const deleteButton = this.querySelector("delete-button");
 
-        
-   
-      deleteButton.addEventListener("click", this.handleDelete.bind(this));
-    
-    
-
-
-
+    deleteButton.addEventListener("click", this.handleDelete.bind(this));
   }
 
   disconnectedCallback() {
-    const deleteButton = this.querySelector("delete-button")
+    const deleteButton = this.querySelector("delete-button");
 
-
-          deleteButton.removeEventListener("click", this.handleDelete.bind(this));
-
-
-
+    deleteButton.removeEventListener("click", this.handleDelete.bind(this));
   }
 
   handleDelete() {
-    const id = this._id
-    console.log(id)
-    console.log('ev: handleDelete clicked')
+    const id = this._id;
+    console.log(id);
+    console.log("ev: handleDelete clicked");
     this.dispatchEvent(
       new CustomEvent("note-delete", {
         detail: {
@@ -57,7 +43,7 @@ class NoteItem extends HTMLElement {
   }
 
   render() {
-    console.log("basic-notes-rendered")
+    console.log("basic-notes-rendered");
     this.innerHTML = `
 
 

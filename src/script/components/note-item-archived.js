@@ -10,23 +10,18 @@ class NoteArchived extends HTMLElement {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this._createdAt = new Date().toLocaleString()
+    this._createdAt = new Date().toLocaleString();
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isArchived");
   }
 
-
-
   connectedCallback() {
     this.render();
-    console.log("isArchived Value:", this._isArchived); 
+    console.log("isArchived Value:", this._isArchived);
     console.log("ev: Archived note zone-----");
-
   }
 
-  disconnectedCallback() {
-
-  }
+  disconnectedCallback() {}
 
   render() {
     console.log("ev: Archived note rendered-----");

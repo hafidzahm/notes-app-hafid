@@ -1,32 +1,29 @@
 class ArchiveButton extends HTMLElement {
   constructor() {
     super();
-
   }
 
   connectedCallback() {
     this.render();
-    const archiveButton = this.querySelector("button")
+    const archiveButton = this.querySelector("button");
     if (archiveButton) {
       archiveButton.addEventListener("click", this.handleArchive.bind(this));
-      console.log("ev: handleArchive connected")
-
+      console.log("ev: handleArchive connected");
     }
   }
 
   disconnectedCallback() {
-    const archiveButton = this.querySelector("button")
+    const archiveButton = this.querySelector("button");
     if (archiveButton) {
       archiveButton.removeEventListener("click", this.handleArchive.bind(this));
-      console.log("ev: handleArchive disconnected")
-
+      console.log("ev: handleArchive disconnected");
     }
   }
 
   handleArchive() {
     const id = parseInt(event.target.dataset.id);
-    console.log(id)
-    console.log('ev: handleArchive clicked')
+    console.log(id);
+    console.log("ev: handleArchive clicked");
     this.dispatchEvent(
       new CustomEvent("book-archive", {
         detail: {

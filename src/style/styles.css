@@ -260,11 +260,11 @@ textarea {
     0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.container-list-note, .noteListContainer{
-  display:grid;
+.container-list-note,
+.noteListContainer {
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
-
 
 .container-list-note {
   display: grid;
@@ -277,23 +277,21 @@ textarea {
 }
 
 .archive-button {
-
-    color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a;
-    width:100%;
-    padding: 6px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
-
-.delete-button {
-
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
-  width:100%;
+  width: 100%;
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  width: 100%;
   padding: 6px;
   border-radius: 4px;
   border: none;
@@ -304,7 +302,7 @@ textarea {
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
-  width:100%;
+  width: 100%;
   padding: 6px;
   border-radius: 4px;
   border: none;
@@ -320,7 +318,7 @@ textarea {
 }
 
 .container-note {
-  display:block;
+  display: block;
   max-width: 100%;
 }
 
@@ -347,11 +345,11 @@ h2:hover {
 #hidden {
   visibility: hidden;
 }
-.sbt-btn{
+.sbt-btn {
   display: grid;
 }
 
-.arc-btn{
+.arc-btn {
   display: grid;
 }
 

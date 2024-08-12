@@ -1,19 +1,18 @@
 const buttonState = () => {
-    window.addEventListener('change', function () {
-        const value = document.getElementById('isArchived').checked;
-        console.log(value);
-        const target = document.getElementById('submit-button');
-        console.log(target);
-        if (value) {
-            target.innerText = 'Masukkan ke Arsip'
-        } else {
-            target.innerText = 'Simpan catatan'
-        }
-    })
-  };
-  
-  export default buttonState;
-  
+  window.addEventListener("change", function () {
+    const value = document.getElementById("isArchived").checked;
+    console.log(value);
+    const target = document.getElementById("submit-button");
+    console.log(target);
+    if (value) {
+      target.innerText = "Masukkan ke Arsip";
+    } else {
+      target.innerText = "Simpan catatan";
+    }
+  });
+};
+
+export default buttonState;
 
 // const buttonState = () => {
 
@@ -30,10 +29,6 @@ const buttonState = () => {
 // //         removeSubmitButton()
 // //     }
 // // });
-
-
-
-
 
 // // function createSubmitButton() {
 // //     const submitBtn = document.createElement('submit-button')
@@ -59,11 +54,6 @@ const buttonState = () => {
 // //     const archiveBtn = document.querySelector('archive-button')
 // //     archiveBtn.remove()
 
-
-
-
-
-
 // // }
 
 //     // Button state logic (after elements are rendered)
@@ -86,6 +76,4 @@ const buttonState = () => {
 
 // }
 
-
 // export default buttonState;
-

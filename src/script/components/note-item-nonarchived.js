@@ -5,32 +5,29 @@ class NoteItem extends HTMLElement {
     "createdAt",
     "body",
     "isArchived",
-    "button"
+    "button",
   ];
   constructor() {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this._createdAt = new Date().toLocaleString()
+    this._createdAt = new Date().toLocaleString();
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isArchived");
-    this._button = this.getAttribute("button")
+    this._button = this.getAttribute("button");
   }
-
 
   connectedCallback() {
     this.render();
-    console.log("note-nonarchived zones-active")
-
+    console.log("note-nonarchived zones-active");
   }
 
   disconnectedCallback() {
-
-    console.log("note-nonarchived zones-nonactive")
+    console.log("note-nonarchived zones-nonactive");
   }
 
   render() {
-    console.log("isArchived Value:", this._isArchived); 
+    console.log("isArchived Value:", this._isArchived);
     console.log("ev: Note nonarchived rendered-----");
     this.innerHTML = `
 
