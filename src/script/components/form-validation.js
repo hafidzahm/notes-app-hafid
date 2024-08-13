@@ -28,7 +28,7 @@ const formValidation = () => {
 
     if (connectedValidationEl && errorMessage && !isValid) {
       connectedValidationEl.innerText = errorMessage;
-      console.log(errorMessage);
+
     } else {
       connectedValidationEl.innerText = "";
     }

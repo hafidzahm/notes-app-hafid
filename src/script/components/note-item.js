@@ -12,7 +12,7 @@ class NoteItem extends HTMLElement {
     this._title = this.getAttribute("title");
     this._createdAt = new Date().toLocaleString();
     this._body = this.getAttribute("body");
-    this._isArchived = this.getAttribute("isArchived");
+    this._isArchived = this.getAttribute("isarchived");
   }
 
   connectedCallback() {
@@ -30,8 +30,7 @@ class NoteItem extends HTMLElement {
 
   handleDelete() {
     const id = this._id;
-    console.log(id);
-    console.log("ev: handleDelete clicked");
+
     this.dispatchEvent(
       new CustomEvent("note-delete", {
         detail: {

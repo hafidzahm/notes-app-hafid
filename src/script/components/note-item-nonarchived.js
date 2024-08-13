@@ -19,16 +19,15 @@ class NoteItem extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    console.log("note-nonarchived zones-active");
+
   }
 
   disconnectedCallback() {
-    console.log("note-nonarchived zones-nonactive");
+
   }
 
   render() {
-    console.log("isArchived Value:", this._isArchived);
-    console.log("ev: Note nonarchived rendered-----");
+
     this.innerHTML = `
 
 

@@ -1,9 +1,9 @@
 const buttonState = () => {
   window.addEventListener("change", function () {
     const value = document.getElementById("isArchived").checked;
-    console.log(value);
+ 
     const target = document.getElementById("submit-button");
-    console.log(target);
+
     if (value) {
       target.innerText = "Masukkan ke Arsip";
     } else {

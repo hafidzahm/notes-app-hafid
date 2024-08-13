@@ -41,14 +41,14 @@ const home = async () => {
         },
       };
       const response = await fetch(
-        `${baseUrl}/notes/${noteId}/archive`,
+        `${baseUrl}/notes/${noteId}/unarchive`,
         options,
       );
       const responseJson = await response.json();
-      console.log("UNARCHIEVED_EVENT_MSG---");
+
       console.log(responseJson);
       showResponseMessage(responseJson.message);
-      await getAllNotes();
+      return responseJson
     } catch (error) {
       showResponseMessage(error);
     }
@@ -67,7 +67,6 @@ const home = async () => {
         options,
       );
       const responseJson = await response.json();
-      console.log("ARCHIEVED_EVENT_MSG---");
       console.log(responseJson);
       showResponseMessage(responseJson.message);
       return responseJson;
@@ -87,7 +86,7 @@ const home = async () => {
       })
       .then((responseJson) => {
         const { data: id } = responseJson;
-        console.log("GET_ARCHIVE_EV_MSG---");
+
         console.log(responseJson);
         return Promise.resolve(id);
       });
@@ -220,39 +219,27 @@ const home = async () => {
       noteVariabel.getAttribute("isArchived"),
     );
 
-    // function archiveButton() {
-    //   const archiveButton = document.createElement('archive-button');
-    //   archiveButton.addEventListener("click", (event) => {
-    //     addNoteArchived()
-    //     console.log(`-----archiveNote event: ${noteId} archived-----`)
-    //     console.log("ev: archiveEvent initialized")
-
-    //   })
-    //   const buttonContainer = noteVariabel.querySelector("button-container");
-    //   archiveButton.append(buttonContainer)
-    // }
-    function unarchiveButton() {
-      const unarchiveButton = document.createElement("unarchive-button");
-      unarchiveButton.addEventListener("unarchive-button", (event) => {
-        addToUnarchived();
-        console.log(`-----archiveNote event: ${noteId} archived-----`);
-        console.log("ev: archiveEvent initialized");
-      });
-    }
+    
 
     if (!noteObject.isArchived) {
       const archiveButton = document.createElement("archive-button");
-      archiveButton.addEventListener("click", function () {
-        addNoteArchived();
+      archiveButton.addEventListener("archive-button",  (event) => {
+        addNoteArchivedApi();
         console.log(`-----archiveNote event: ${noteId} archived-----`);
         console.log("ev: archiveEvent initialized");
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       archiveButton.append(buttonContainer);
     } else {
-      unarchiveButton();
+      const unarchiveButton = document.createElement("unarchive-button");
+      unarchiveButton.addEventListener("unarchive-button",  (event) => {
+        unarchivedNoteApi();
+        console.log(`-----unarchiveNote event: ${noteId} archived-----`);
+        console.log("ev: unarchiveEvent initialized");
+      });
+      const buttonContainer = noteVariabel.querySelector("button-container");
+      unarchiveButton.append(buttonContainer);
     }
-
     noteVariabel.append(noteContainer);
     return noteVariabel;
   }
@@ -287,7 +274,7 @@ const home = async () => {
 
   async function addNoteArchived(noteId) {
     try {
-       await addNoteArchivedApi(noteId);
+      const response = await addNoteArchivedApi(noteId);
     } catch (error) {
       console.log(error);
     }
@@ -348,27 +335,18 @@ const home = async () => {
 
 
 
-    console.log("render");
 
-    try {
-      const notes = await getAllNotes();
-      notes.forEach((note) => {
-        const noteElement = makeNote(note);
-        document.getElementById("note-list-container").append(noteElement);
-      });
-    } catch (error) {
-      console.error("error fetching notes:", error);
-    }
+    for (const note of notes) {
+      const noteElement = makeNote(note);
+      if (!note.isArchived) {
+            getAllNotes()
+            noteContainer.append(noteElement);
+      } else {
+            getNoteArchivedApi()
+            archivedNoteContainer.append(noteElement);
+      }
+}
 
-    try {
-      const archivedNotes = await getNoteArchivedApi();
-      archivedNotes.forEach((note) => {
-        const noteElement = makeNote(note);
-        document.getElementById("note-archive-container").append(noteElement);
-      });
-    } catch (error) {
-      console.error("error fetching notes:", error);
-    }
   });
 
   //DOM
@@ -376,12 +354,17 @@ const home = async () => {
     formValidation();
     buttonState();
 
+ 
+
     try {
-      const notes = await getAllNotes();
-      notes.forEach((note) => {
+      
+      const notesNon = await getAllNotes();
+      notesNon.forEach((note) => {
         const noteElement = makeNote(note);
-        document.getElementById("note-list-container").append(noteElement);
+        document.querySelector("#note-list-container").append(noteElement);
       });
+
+
     } catch (error) {
       console.error("error fetching notes:", error);
     }
@@ -390,23 +373,26 @@ const home = async () => {
       const archivedNotes = await getNoteArchivedApi();
       archivedNotes.forEach((note) => {
         const noteElement = makeNote(note);
-        document.getElementById("note-archive-container").append(noteElement);
+        document.querySelector("#note-archive-container").append(noteElement);
       });
     } catch (error) {
       console.error("error fetching notes:", error);
     }
 
-    console.log("dom");
     const noteForm = document.getElementById("form");
 
     noteForm.addEventListener("submit", async function (event) {
       event.preventDefault();
       formValidation();
       await addNote();
-      console.log("ssssssssssssssssubmitted");
+    
+
+
       noteForm.reset();
+
     });
   });
+
 };
 
 export default home;

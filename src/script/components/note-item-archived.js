@@ -17,14 +17,13 @@ class NoteArchived extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    console.log("isArchived Value:", this._isArchived);
-    console.log("ev: Archived note zone-----");
+
   }
 
   disconnectedCallback() {}
 
   render() {
-    console.log("ev: Archived note rendered-----");
+
     this.innerHTML = `
 
 
