@@ -32,7 +32,7 @@ const home = async () => {
       showResponseMessage(error);
     }
   };
-  const unarchivedNoteApi = async (noteId) => {
+  const unarchiveNoteApi = async (noteId) => {
     try {
       const options = {
         method: "POST",
@@ -137,6 +137,7 @@ const home = async () => {
         console.log(responseJson.message);
         getAllNotes();
         getNoteArchivedApi();
+        window.location.reload();
       })
       .catch((error) => {
         showResponseMessage(error);
@@ -228,7 +229,7 @@ const home = async () => {
     } else {
       const unarchiveButton = document.createElement("unarchive-button");
       unarchiveButton.addEventListener("unarchive-button",  (event) => {
-        unarchivedNoteApi();
+        unarchiveNoteApi();
     
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
@@ -274,18 +275,12 @@ const home = async () => {
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 
-  async function addToUnarchived() {
-    const noteId = generateId();
-    const noteTargetId = findNote(noteId);
+  async function unarchiveNote() {
     try {
-      await unarchivedNoteApi(noteId);
-      if (noteTargetId == null) return;
-
-      noteTargetId.isArchived = false;
+      const response = await unarchiveNoteApi(noteId);
     } catch (error) {
       console.log(error);
     }
-
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 

@@ -10,7 +10,7 @@ class NoteItem extends HTMLElement {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this._createdAt = new Date().toLocaleString();
+    this._createdAt = this.getAttribute("createdat");
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isarchived");
   }
