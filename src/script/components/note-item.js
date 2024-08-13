@@ -26,6 +26,7 @@ class NoteItem extends HTMLElement {
     const deleteButton = this.querySelector("delete-button");
 
     deleteButton.removeEventListener("click", this.handleDelete.bind(this));
+
   }
 
   handleDelete() {

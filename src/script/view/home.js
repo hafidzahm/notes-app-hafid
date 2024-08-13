@@ -88,7 +88,7 @@ const home = async () => {
         const { data: id } = responseJson;
 
         console.log(responseJson);
-        return responseJson;
+        return responseJson.data
       });
   };
 
@@ -205,7 +205,7 @@ const home = async () => {
     noteVariabel.setAttribute("body", noteObject.body);
     noteVariabel.setAttribute(
       "isArchived",
-      noteObject.isArchived ? "true" : "false",
+      noteObject.archived ? "true" : "false",
     );
     noteVariabel.addEventListener("note-delete", (event) => {
       const noteId = noteObject.id;
@@ -381,6 +381,7 @@ const home = async () => {
     
 
 
+      window.location.reload();
       noteForm.reset();
 
     });
