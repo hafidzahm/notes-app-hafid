@@ -11,7 +11,7 @@ class UnarchiveButton extends HTMLElement {
         "click",
         this.handleUnarchive.bind(this),
       );
-      console.log("ev: handleUnarchive connected");
+
     
 
   }
@@ -23,14 +23,13 @@ class UnarchiveButton extends HTMLElement {
         "click",
         this.handleUnarchive.bind(this),
       );
-      console.log("ev: handleUnarchive disconnected");
+
     
   }
 
   handleUnarchive() {
     const id = this.parentElement.parentElement.getAttribute('id');
-    console.log(id);
-    console.log("ev: handleUnarchive clicked");
+
     this.dispatchEvent(
       new CustomEvent("note-unarchive", {
         detail: {

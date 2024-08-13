@@ -42,7 +42,7 @@ class NoteItem extends HTMLElement {
   }
 
   render() {
-    console.log("basic-notes-rendered");
+
     this.innerHTML = `
 
 
@@ -70,8 +70,7 @@ class NoteItem extends HTMLElement {
       
           
           `;
-console.log("STATUS_isArchived_buttonLogic")
-console.log(this.getAttribute("isarchived"));
+
           const archiveButton = document.createElement("archive-button");
           const unarchiveButton = document.createElement("unarchive-button");
           if (this.getAttribute("isarchived") === "true") {

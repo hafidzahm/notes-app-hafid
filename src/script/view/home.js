@@ -88,7 +88,7 @@ const home = async () => {
         const { data: id } = responseJson;
 
         console.log(responseJson);
-        return Promise.resolve(id);
+        return responseJson;
       });
   };
 
@@ -211,13 +211,9 @@ const home = async () => {
       const noteId = noteObject.id;
       deleteNote(noteId);
 
-      console.log(`-----deleteNote event: ${noteId} deleted-----`);
-      console.log("ev: deleteEvent initialized");
+  
     });
-    console.log(
-      "isArchived attribute set to:",
-      noteVariabel.getAttribute("isArchived"),
-    );
+ 
 
     
 
@@ -225,8 +221,7 @@ const home = async () => {
       const archiveButton = document.createElement("archive-button");
       archiveButton.addEventListener("archive-button",  (event) => {
         addNoteArchivedApi();
-        console.log(`-----archiveNote event: ${noteId} archived-----`);
-        console.log("ev: archiveEvent initialized");
+   
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       archiveButton.append(buttonContainer);
@@ -234,8 +229,7 @@ const home = async () => {
       const unarchiveButton = document.createElement("unarchive-button");
       unarchiveButton.addEventListener("unarchive-button",  (event) => {
         unarchivedNoteApi();
-        console.log(`-----unarchiveNote event: ${noteId} archived-----`);
-        console.log("ev: unarchiveEvent initialized");
+    
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       unarchiveButton.append(buttonContainer);
@@ -246,14 +240,13 @@ const home = async () => {
 
   async function deleteNote(noteId) {
     const noteTarget = findNoteTarget(noteId);
-    console.log(findNoteTarget(noteId));
+
 
     try {
       await deleteNoteApi(noteId);
       if (noteTarget === -1) return;
       notes.splice(noteTarget, 1);
 
-      console.log("async delete initialized=====");
     } catch (error) {
       console.log(error);
     }
@@ -267,7 +260,7 @@ const home = async () => {
         return index;
       }
 
-      console.log(index);
+
     }
     return -1;
   }
