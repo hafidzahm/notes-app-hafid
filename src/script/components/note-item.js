@@ -56,9 +56,9 @@ class NoteItem extends HTMLElement {
            <h1>${this._title}</h1>
            <h3>                        
           Dibuat pada tanggal:
-          ${this._createdAt}</h3>
+          <h3>${this.getAttribute("createdat")}</h3>
             <h2>${this._body}</h2>
-            <p>${this._isArchived}</p>
+            <p>${this.getAttribute("isarchived")}</p>
           </div>
 
           <div class="button-container">
@@ -72,10 +72,10 @@ class NoteItem extends HTMLElement {
           
           `;
 console.log("STATUS_isArchived_buttonLogic")
-console.log(this._isArchived);
+console.log(this.getAttribute("isarchived"));
           const archiveButton = document.createElement("archive-button");
           const unarchiveButton = document.createElement("unarchive-button");
-          if (!this._isArchived) {
+          if (this.getAttribute("isarchived") === "true") {
             this.querySelector(".button-container").append(unarchiveButton);
           } else {
             this.querySelector(".button-container").append(archiveButton);

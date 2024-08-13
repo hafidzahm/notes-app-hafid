@@ -41,6 +41,9 @@ class NoteArchived extends HTMLElement {
         </div>
           
           `;
+          const unarchiveButton = document.createElement("unarchive-button");
+this.querySelector(".button-container").append(unarchiveButton);
+  
 
   }
 

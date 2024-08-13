@@ -26,7 +26,8 @@ const home = async () => {
       const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
       showResponseMessage(responseJson.message);
-      await getAllNotes();
+      // await getAllNotes();
+      return responseJson;
     } catch (error) {
       showResponseMessage(error);
     }
@@ -69,7 +70,7 @@ const home = async () => {
       console.log("ARCHIEVED_EVENT_MSG---");
       console.log(responseJson);
       showResponseMessage(responseJson.message);
-      await getNoteArchivedApi();
+      return responseJson;
     } catch (error) {
       showResponseMessage(error);
     }
@@ -160,32 +161,19 @@ const home = async () => {
       isArchived,
     );
     try {
-      if (!isArchived) {
-        await addNoteApi(noteObject);
-        console.log("ngga");
-        console.log(
-          `noteId: "${noteObject.id}" with title "${noteObject.title}" added`,
-        );
-        console.log(JSON.parse(JSON.stringify(noteObject)));
-        console.log("-----addNoteEv:Note added-----");
-        console.log(isArchived);
-
-        notes.push(noteObject);
-      } else {
-        await addNoteArchived(noteObject.id);
-        console.log("BENER GA");
-        console.log(
-          `noteId: "${noteObject.id}" with title "${noteObject.title}" added`,
-        );
-        console.log(JSON.parse(JSON.stringify(noteObject)));
-        console.log("-----addNoteArchivedEv:Note added-----");
-        console.log(isArchived);
-
-        notes.push(noteObject);
+      const response = await addNoteApi(noteObject);
+      const responseId = response.data.id;
+      console.log(responseId, isArchived);
+      if (isArchived) {
+            await addNoteArchived(responseId);
       }
+
+        
+      
     } catch (error) {
       console.error("error adding note:", error);
     }
+    notes.push(noteObject);
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 
@@ -297,18 +285,12 @@ const home = async () => {
     return -1;
   }
 
-  async function addNoteArchived() {
-    const noteId = generateId();
-    const noteTargetId = findNote(noteId);
+  async function addNoteArchived(noteId) {
     try {
-      await addNoteArchivedApi(noteId);
-      if (noteTargetId == null) return;
-
-      noteTargetId.isArchived = true;
+       await addNoteArchivedApi(noteId);
     } catch (error) {
       console.log(error);
     }
-
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 

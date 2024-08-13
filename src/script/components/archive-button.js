@@ -38,8 +38,8 @@ class ArchiveButton extends HTMLElement {
     this.innerHTML = `
             <style>
                 button {
-                    color: blue;
-                    background-color: green;
+                    color: green;
+                    background-color: white;
                     border-color: #d43f3a;
                     width:100%;
                     padding: 6px;

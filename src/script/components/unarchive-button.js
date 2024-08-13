@@ -46,7 +46,7 @@ class UnarchiveButton extends HTMLElement {
     this.innerHTML = `
             <style>
                 button {
-                    color: blue;
+                    color: white;
                     background-color: green;
                     border-color: #d43f3a;
                     width:100%;
