@@ -1,13 +1,8 @@
 <<<<<<< HEAD
 
-    12/8
+    14/8
 
-    bug: button archive&unarchive tdk muncul
+   add: loading-indicator
 
 =======
-bug
-double note (solved)
-logic !isArchived button (solved)
-------> logic isArchied button
 
-> > > > > > > ba4bb1f (debug-1)
