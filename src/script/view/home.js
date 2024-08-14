@@ -48,7 +48,7 @@ const home = async () => {
 
       console.log(responseJson);
       showResponseMessage(responseJson.message);
-      return responseJson
+      return responseJson;
     } catch (error) {
       showResponseMessage(error);
     }
@@ -88,7 +88,7 @@ const home = async () => {
         const { data: id } = responseJson;
 
         console.log(responseJson);
-        return responseJson.data
+        return responseJson.data;
       });
   };
 
@@ -165,11 +165,8 @@ const home = async () => {
       const responseId = response.data.id;
       console.log(responseId, isArchived);
       if (isArchived) {
-            await addNoteArchived(responseId);
+        await addNoteArchived(responseId);
       }
-
-        
-      
     } catch (error) {
       console.error("error adding note:", error);
     }
@@ -211,26 +208,19 @@ const home = async () => {
     noteVariabel.addEventListener("note-delete", (event) => {
       const noteId = noteObject.id;
       deleteNote(noteId);
-
-  
     });
- 
-
-    
 
     if (!noteObject.isArchived) {
       const archiveButton = document.createElement("archive-button");
-      archiveButton.addEventListener("archive-button",  (event) => {
+      archiveButton.addEventListener("archive-button", (event) => {
         addNoteArchivedApi();
-   
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       archiveButton.append(buttonContainer);
     } else {
       const unarchiveButton = document.createElement("unarchive-button");
-      unarchiveButton.addEventListener("unarchive-button",  (event) => {
+      unarchiveButton.addEventListener("unarchive-button", (event) => {
         unarchiveNoteApi();
-    
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       unarchiveButton.append(buttonContainer);
@@ -242,12 +232,10 @@ const home = async () => {
   async function deleteNote(noteId) {
     const noteTarget = findNoteTarget(noteId);
 
-
     try {
       await deleteNoteApi(noteId);
       if (noteTarget === -1) return;
       notes.splice(noteTarget, 1);
-
     } catch (error) {
       console.log(error);
     }
@@ -260,8 +248,6 @@ const home = async () => {
       if (notes[index].id === noteId) {
         return index;
       }
-
-
     }
     return -1;
   }
@@ -321,20 +307,16 @@ const home = async () => {
     const noteContainer = document.getElementById("note-list-container");
     noteContainer.innerHTML = "";
 
-
-
-
     for (const note of notes) {
       const noteElement = makeNote(note);
       if (!note.isArchived) {
-            getAllNotes()
-            noteContainer.append(noteElement);
+        getAllNotes();
+        noteContainer.append(noteElement);
       } else {
-            getNoteArchivedApi()
-            archivedNoteContainer.append(noteElement);
+        getNoteArchivedApi();
+        archivedNoteContainer.append(noteElement);
       }
-}
-
+    }
   });
 
   //DOM
@@ -342,17 +324,12 @@ const home = async () => {
     formValidation();
     buttonState();
 
- 
-
     try {
-      
       const notesNon = await getAllNotes();
       notesNon.forEach((note) => {
         const noteElement = makeNote(note);
         document.querySelector("#note-list-container").append(noteElement);
       });
-
-
     } catch (error) {
       console.error("error fetching notes:", error);
     }
@@ -373,15 +350,11 @@ const home = async () => {
       event.preventDefault();
       formValidation();
       await addNote();
-    
-
 
       window.location.reload();
       noteForm.reset();
-
     });
   });
-
 };
 
 export default home;

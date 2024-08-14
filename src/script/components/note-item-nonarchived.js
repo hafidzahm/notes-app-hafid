@@ -19,15 +19,11 @@ class NoteItem extends HTMLElement {
 
   connectedCallback() {
     this.render();
-
   }
 
-  disconnectedCallback() {
-
-  }
+  disconnectedCallback() {}
 
   render() {
-
     this.innerHTML = `
 
 
@@ -45,8 +41,8 @@ class NoteItem extends HTMLElement {
       
           
           `;
-          const archiveButton = document.createElement("archive-button");
-this.querySelector(".button-container").append(archiveButton);
+    const archiveButton = document.createElement("archive-button");
+    this.querySelector(".button-container").append(archiveButton);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

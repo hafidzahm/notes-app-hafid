@@ -26,7 +26,6 @@ class NoteItem extends HTMLElement {
     const deleteButton = this.querySelector("delete-button");
 
     deleteButton.removeEventListener("click", this.handleDelete.bind(this));
-
   }
 
   handleDelete() {
@@ -43,7 +42,6 @@ class NoteItem extends HTMLElement {
   }
 
   render() {
-
     this.innerHTML = `
 
 
@@ -72,13 +70,13 @@ class NoteItem extends HTMLElement {
           
           `;
 
-          const archiveButton = document.createElement("archive-button");
-          const unarchiveButton = document.createElement("unarchive-button");
-          if (this.getAttribute("isarchived") === "true") {
-            this.querySelector(".button-container").append(unarchiveButton);
-          } else {
-            this.querySelector(".button-container").append(archiveButton);
-          }
+    const archiveButton = document.createElement("archive-button");
+    const unarchiveButton = document.createElement("unarchive-button");
+    if (this.getAttribute("isarchived") === "true") {
+      this.querySelector(".button-container").append(unarchiveButton);
+    } else {
+      this.querySelector(".button-container").append(archiveButton);
+    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

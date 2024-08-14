@@ -348,6 +348,24 @@ h2:hover {
 .sbt-btn {
   display: grid;
 }
+loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it's on top of other content */
+}
+
+loading-indicator img {
+  /* Style your loading spinner image here */
+  width: 150px; /* Increased by 50% */
+  height: 150px; /* Increased by 50% */
+}
 
 .arc-btn {
   display: grid;

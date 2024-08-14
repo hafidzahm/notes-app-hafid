@@ -6,29 +6,21 @@ class UnarchiveButton extends HTMLElement {
   connectedCallback() {
     this.render();
     const unarchiveButton = this.querySelector("button");
-  
-      unarchiveButton.addEventListener(
-        "click",
-        this.handleUnarchive.bind(this),
-      );
 
-    
-
+    unarchiveButton.addEventListener("click", this.handleUnarchive.bind(this));
   }
 
   disconnectedCallback() {
     const unarchiveButton = this.querySelector("button");
-    
-      unarchiveButton.removeEventListener(
-        "click",
-        this.handleUnarchive.bind(this),
-      );
 
-    
+    unarchiveButton.removeEventListener(
+      "click",
+      this.handleUnarchive.bind(this),
+    );
   }
 
   handleUnarchive() {
-    const id = this.parentElement.parentElement.getAttribute('id');
+    const id = this.parentElement.parentElement.getAttribute("id");
 
     this.dispatchEvent(
       new CustomEvent("note-unarchive", {

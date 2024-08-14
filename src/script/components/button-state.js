@@ -1,7 +1,7 @@
 const buttonState = () => {
   window.addEventListener("change", function () {
     const value = document.getElementById("isArchived").checked;
- 
+
     const target = document.getElementById("submit-button");
 
     if (value) {
