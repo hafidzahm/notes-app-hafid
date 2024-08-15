@@ -2,6 +2,7 @@ import "../components/index.js";
 import dummies from "../data/local/notes.js";
 import formValidation from "../components/form-validation.js";
 import buttonState from "../components/button-state.js";
+import Swal from 'sweetalert2'
 // import notes from "../data/local/notes.js";
 // import "../data/api.js"
 //
@@ -232,15 +233,60 @@ const home = async () => {
   }
 
   async function deleteNote(noteId) {
+Swal.fire({
+  title: 'Kamu yakin ingin menghapus catatan?',
+  showDenyButton: true,
+  confirmButtonText: 'Iya',
+  denyButtonText: 'Tidak',
+  customClass: {
+    actions: 'my-actions',
+    confirmButton: 'order-2',
+    denyButton: 'order-3',
+  },
+}).then((result) => {
+  if (result.isConfirmed) {
     const noteTarget = findNoteTarget(noteId);
+    deleteNoteApi(noteId);
+   if (noteTarget === -1) return;
+   notes.splice(noteTarget, 1);
 
-    try {
-      await deleteNoteApi(noteId);
-      if (noteTarget === -1) return;
-      notes.splice(noteTarget, 1);
-    } catch (error) {
-      console.log(error);
-    }
+
+
+  } else if (result.isDenied) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    })
+    ;(async () => {
+      await Toast.fire({
+        icon: 'info',
+        title: 'Catatan tidak jadi dihapus',
+      })
+    })()
+
+
+
+  }
+})
+    
+
+
+
+
+
+
+
+
+
+
+  
 
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
