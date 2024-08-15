@@ -26,11 +26,17 @@ const home = async () => {
       };
       const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
-      showResponseMessage(responseJson.message);
+      // showResponseMessage(responseJson.message);
       // await getAllNotes();
       return responseJson;
     } catch (error) {
-      showResponseMessage(error);
+      // showResponseMessage(error);
+      console.log(error)
+      Swal.fire({
+        title: `ERROR`,
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
   };
   const unarchiveNoteApi = async (noteId) => {
@@ -48,10 +54,15 @@ const home = async () => {
       const responseJson = await response.json();
 
       console.log(responseJson);
-      showResponseMessage(responseJson.message);
+      // showResponseMessage(responseJson.message);
       return responseJson;
     } catch (error) {
-      showResponseMessage(error);
+      // showResponseMessage(error);
+      Swal.fire({
+        title: `ERROR`,
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -69,10 +80,15 @@ const home = async () => {
       );
       const responseJson = await response.json();
       console.log(responseJson);
-      showResponseMessage(responseJson.message);
+      // showResponseMessage(responseJson.message);
       return responseJson;
     } catch (error) {
-      showResponseMessage(error);
+      // showResponseMessage(error);
+      Swal.fire({
+        title: `ERROR`,
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -134,35 +150,23 @@ const home = async () => {
         return response.json();
       })
       .then((responseJson) => {
-
+        // showResponseMessage(responseJson.message);
         console.log(responseJson.message);
         getAllNotes();
         getNoteArchivedApi();
         window.location.reload();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'center',
-          iconColor: 'white',
-          customClass: {
-            popup: 'colored-toast',
-          },
-          showConfirmButton: false,
-          timer: 1500,
-          timerProgressBar: true,
-        })
         
-        ;(async () => {
-          await Toast.fire({
-            icon: 'success',
-            title: 'Catatan berhasil dihapus',
-          })
-        })()
       })
 
       
       .catch((error) => {
-        showResponseMessage(error);
+        // showResponseMessage(error);
         console.log(error);
+        Swal.fire({
+          title: `ERROR`,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       });
   };
 
@@ -183,6 +187,7 @@ const home = async () => {
     );
     try {
       const response = await addNoteApi(noteObject);
+
       const responseId = response.data.id;
       console.log(responseId, isArchived);
       if (isArchived) {
@@ -190,8 +195,16 @@ const home = async () => {
       }
     } catch (error) {
       console.error("error adding note:", error);
+      Swal.fire({
+        title: `ERROR`,
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
     notes.push(noteObject);
+    if (notes.push(noteObject)) {
+      localStorage.setItem('NOTE_ADD', JSON.stringify({success: true}));
+    }
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 
@@ -265,6 +278,7 @@ Swal.fire({
   },
 }).then((result) => {
   if (result.isConfirmed) {
+    localStorage.setItem('NOTE_SAVE', JSON.stringify({success: true}));
     const noteTarget = findNoteTarget(noteId);
     deleteNoteApi(noteId);
    if (noteTarget === -1) return;
@@ -401,6 +415,11 @@ Swal.fire({
       });
     } catch (error) {
       console.error("error fetching notes:", error);
+      Swal.fire({
+        title: "Mohon periksa jaringan internet Anda",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
 
     try {
@@ -411,13 +430,119 @@ Swal.fire({
       });
     } catch (error) {
       console.error("error fetching notes:", error);
+      Swal.fire({
+        title: "Mohon periksa jaringan internet Anda",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
     }
 
     //loading-indicator 2s
     const loadingIndicator = document.querySelector("loading-indicator");
     setTimeout(() => {
       loadingIndicator.style.display = "none";
-    }, 2000);
+    }, 500);
+
+    //toastmsg-after-reload-DELETE
+    const alertDelete = JSON.parse(localStorage.getItem('NOTE_SAVE'));
+    const alertAdd = JSON.parse(localStorage.getItem('NOTE_ADD'));
+    const alertUnarchive = JSON.parse(localStorage.getItem('NOTE_UNARCHIVE'));
+    const alertArchive = JSON.parse(localStorage.getItem('NOTE_ARCHIVE'));
+
+
+
+    if(alertDelete!==null &&  alertDelete.success) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        iconColor: 'white',
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      })
+      
+      ;(async () => {
+        await Toast.fire({
+          icon: 'success',
+          title: 'Catatan berhasil dihapus',
+        })
+      })()
+
+      localStorage.setItem('NOTE_SAVE', JSON.stringify({success: false})) 
+    }
+
+    if(alertAdd!==null &&  alertAdd.success) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        iconColor: 'white',
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      })
+      
+      ;(async () => {
+        await Toast.fire({
+          icon: 'success',
+          title: 'Catatan berhasil ditambahkan',
+        })
+      })()
+
+      localStorage.setItem('NOTE_ADD', JSON.stringify({success: false})) 
+    }
+
+    if(alertUnarchive!==null &&  alertUnarchive.success) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        iconColor: 'white',
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      })
+      
+      ;(async () => {
+        await Toast.fire({
+          icon: 'success',
+          title: 'Catatan berhasil dikeluarkan dari Arsip',
+        })
+      })()
+
+      localStorage.setItem('NOTE_UNARCHIVE', JSON.stringify({success: false})) 
+    }
+
+    if(alertArchive!==null &&  alertArchive.success) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        iconColor: 'white',
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      })
+      
+      ;(async () => {
+        await Toast.fire({
+          icon: 'success',
+          title: 'Catatan berhasil dipindahkan ke Arsip',
+        })
+      })()
+
+      localStorage.setItem('NOTE_ARCHIVE', JSON.stringify({success: false})) 
+    }
+    
 
     const noteForm = document.getElementById("form");
 

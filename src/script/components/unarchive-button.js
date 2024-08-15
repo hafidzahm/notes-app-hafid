@@ -39,11 +39,19 @@ class UnarchiveButton extends HTMLElement {
         const responseJson = await response.json();
         
         console.log(responseJson);
-        showResponseMessage(responseJson.message);
+        // showResponseMessage(responseJson.message);
         window.location.reload();
+        if (response) {
+          localStorage.setItem('NOTE_UNARCHIVE', JSON.stringify({success: true}));
+        }
         return responseJson;
       } catch (error) {
-        showResponseMessage(error);
+        // showResponseMessage(error);
+        Swal.fire({
+          title: `GAGAL MEMBUANG ARSIP`,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       }
     };
     unarchiveNoteApi(id);
