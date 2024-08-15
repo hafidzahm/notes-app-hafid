@@ -1,3 +1,4 @@
+import home from "../view/home.js"
 class UnarchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -22,14 +23,15 @@ class UnarchiveButton extends HTMLElement {
   handleUnarchive() {
     const id = this.parentElement.parentElement.getAttribute("id");
     console.log("unarchive note clicked")
-    this.dispatchEvent(
-      new CustomEvent("note-unarchive", {
-        detail: {
-          id,
-        },
-        bubbles: true,
-      }),
-    );
+    // this.dispatchEvent(
+    //   new CustomEvent("note-unarchive", {
+    //     detail: {
+    //       id,
+    //     },
+    //     bubbles: true,
+    //   }),
+    // );
+    home.unarchiveNote(id)
   }
 
   render() {

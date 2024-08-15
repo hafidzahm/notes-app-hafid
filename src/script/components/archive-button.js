@@ -1,3 +1,4 @@
+import home from "../view/home"
 class ArchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -19,14 +20,15 @@ class ArchiveButton extends HTMLElement {
   handleArchive() {
     const id = this.parentElement.parentElement.getAttribute("id");
     console.log("ARCHIVE-BUTTON CLICKED")
-    this.dispatchEvent(
-      new CustomEvent("note-archive", {
-        detail: {
-          id,
-        },
-        bubbles: true,
-      }),
-    );
+    // this.dispatchEvent(
+    //   new CustomEvent("note-archive", {
+    //     detail: {
+    //       id,
+    //     },
+    //     bubbles: true,
+    //   }),
+    // );
+    home.addNoteArchiveApi(id);
   }
 
   render() {
