@@ -134,12 +134,32 @@ const home = async () => {
         return response.json();
       })
       .then((responseJson) => {
-        showResponseMessage(responseJson.message);
+
         console.log(responseJson.message);
         getAllNotes();
         getNoteArchivedApi();
         window.location.reload();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          iconColor: 'white',
+          customClass: {
+            popup: 'colored-toast',
+          },
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        })
+        
+        ;(async () => {
+          await Toast.fire({
+            icon: 'success',
+            title: 'Success',
+          })
+        })()
       })
+
+      
       .catch((error) => {
         showResponseMessage(error);
         console.log(error);
@@ -249,6 +269,7 @@ Swal.fire({
     deleteNoteApi(noteId);
    if (noteTarget === -1) return;
    notes.splice(noteTarget, 1);
+   
 
 
 
@@ -261,7 +282,7 @@ Swal.fire({
         popup: 'colored-toast',
       },
       showConfirmButton: false,
-      timer: 1500,
+      timer: 3000,
       timerProgressBar: true,
     })
     ;(async () => {
@@ -288,7 +309,7 @@ Swal.fire({
 
   
 
-    document.dispatchEvent(new Event(RENDER_EVENT));
+
   }
 
   function findNoteTarget(noteId) {
