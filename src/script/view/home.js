@@ -344,6 +344,12 @@ const home = async () => {
       console.error("error fetching notes:", error);
     }
 
+    //loading-indicator 2s
+    const loadingIndicator = document.querySelector("loading-indicator");
+    setTimeout(() => {
+      loadingIndicator.style.display = "none";
+    }, 2000);
+
     const noteForm = document.getElementById("form");
 
     noteForm.addEventListener("submit", async function (event) {
