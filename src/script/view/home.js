@@ -154,7 +154,7 @@ const home = async () => {
         ;(async () => {
           await Toast.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'Catatan berhasil dihapus',
           })
         })()
       })
