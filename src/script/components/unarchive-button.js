@@ -1,4 +1,4 @@
-import home from "../view/home.js"
+
 class UnarchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -21,17 +21,35 @@ class UnarchiveButton extends HTMLElement {
   }
 
   handleUnarchive() {
+    const baseUrl = "https://notes-api.dicoding.dev/v2";
     const id = this.parentElement.parentElement.getAttribute("id");
-    console.log("unarchive note clicked")
-    // this.dispatchEvent(
-    //   new CustomEvent("note-unarchive", {
-    //     detail: {
-    //       id,
-    //     },
-    //     bubbles: true,
-    //   }),
-    // );
-    home.unarchiveNote(id)
+    console.log("UNARCHIVE-BUTTON CLICKED", id)
+    const unarchiveNoteApi = async (noteId) => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await fetch(
+          `${baseUrl}/notes/${noteId}/unarchive`,
+          options,
+        );
+        const responseJson = await response.json();
+        
+        console.log(responseJson);
+        showResponseMessage(responseJson.message);
+        window.location.reload();
+        return responseJson;
+      } catch (error) {
+        showResponseMessage(error);
+      }
+    };
+    unarchiveNoteApi(id);
+    const showResponseMessage = (message = "Check your internet connection") => {
+      alert(message);
+    };
   }
 
   render() {

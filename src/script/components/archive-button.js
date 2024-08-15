@@ -1,4 +1,3 @@
-import home from "../view/home"
 class ArchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -17,18 +16,35 @@ class ArchiveButton extends HTMLElement {
     archiveButton.removeEventListener("click", this.handleArchive.bind(this));
   }
 
-  handleArchive() {
+ handleArchive() {
+    const baseUrl = "https://notes-api.dicoding.dev/v2";
     const id = this.parentElement.parentElement.getAttribute("id");
-    console.log("ARCHIVE-BUTTON CLICKED")
-    // this.dispatchEvent(
-    //   new CustomEvent("note-archive", {
-    //     detail: {
-    //       id,
-    //     },
-    //     bubbles: true,
-    //   }),
-    // );
-    home.addNoteArchiveApi(id);
+    console.log("ARCHIVE-BUTTON CLICKED", id)
+    const addNoteArchivedApi = async (noteId) => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await fetch(
+          `${baseUrl}/notes/${noteId}/archive`,
+          options,
+        );
+        const responseJson = await response.json();
+        console.log(responseJson);
+        showResponseMessage(responseJson.message);
+        window.location.reload();
+        return responseJson;
+      } catch (error) {
+        showResponseMessage(error);
+      }
+    };
+    addNoteArchivedApi(id);
+    const showResponseMessage = (message = "Check your internet connection") => {
+      alert(message);
+    };
   }
 
   render() {
