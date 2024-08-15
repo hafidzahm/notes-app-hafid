@@ -5,20 +5,20 @@ class ArchiveButton extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    const archiveButton = this.querySelector("button");
+    const archiveButton = this.querySelector(".archive-button");
 
     archiveButton.addEventListener("click", this.handleArchive.bind(this));
   }
 
   disconnectedCallback() {
-    const archiveButton = this.querySelector("button");
+    const archiveButton = this.querySelector(".archive-button");
 
     archiveButton.removeEventListener("click", this.handleArchive.bind(this));
   }
 
   handleArchive() {
     const id = this.parentElement.parentElement.getAttribute("id");
-
+    console.log("ARCHIVE-BUTTON CLICKED")
     this.dispatchEvent(
       new CustomEvent("note-archive", {
         detail: {
@@ -43,7 +43,7 @@ class ArchiveButton extends HTMLElement {
                     cursor: pointer;
                 }
             </style>
-            <button>Pindah ke Arsip</button>
+            <button class="archive-button">Pindah ke Arsip</button>
         `;
   }
 }

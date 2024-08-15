@@ -212,14 +212,16 @@ const home = async () => {
 
     if (!noteObject.isArchived) {
       const archiveButton = document.createElement("archive-button");
-      archiveButton.addEventListener("archive-button", (event) => {
+      archiveButton.addEventListener("note-archive", (event) => {
+      
         addNoteArchivedApi();
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
       archiveButton.append(buttonContainer);
     } else {
       const unarchiveButton = document.createElement("unarchive-button");
-      unarchiveButton.addEventListener("unarchive-button", (event) => {
+      unarchiveButton.addEventListener("note-unarchive", (event) => {
+ 
         unarchiveNoteApi();
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
