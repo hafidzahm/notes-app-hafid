@@ -421,3 +421,12 @@ loading-indicator img {
 .colored-toast.swal2-icon-success {
   background-color: #a5dc86 !important;
 }
+
+
+@media screen and (min-width: 1024px) {
+  .noteListContainer,
+  .noteArchiveContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(512px, 1fr));
+  }
+}
