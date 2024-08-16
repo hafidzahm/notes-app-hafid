@@ -39,12 +39,15 @@ input:focus-visible {
 }
 
 input[type="text"] {
+
+  justify-content: center;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
   border-radius: 4px;
   transition-duration: 0.4s;
   cursor: pointer;
+  width: 100%;
+  margin: 8px 0;
+box-sizing: border-box;
 }
 input[type="text"]:focus {
   background-color: #fcdc94;
@@ -65,9 +68,18 @@ input[type="textarea"] {
   box-sizing: border-box;
   border-radius: 4px;
 }
+.checkbox-element{
+  display: block;
+  margin: 0px;
+}
 
 input {
+  width: 350px;
   background-color: #c8cfa0;
+}
+.form-button{
+  display: block;;
+  border-radius:2em;
 }
 
 textarea:focus-visible {
@@ -176,14 +188,20 @@ label:has(+ input:focus-visible) {
   background-color: #78aba8;
   color: white;
 }
-
+#form-spin {
+  display: grid;
+  justify-items: center;
+}
 #form {
   display: grid;
+  align-items: center;
+  
 
   border-radius: 25px;
   justify-content: space-evenly;
   align-items: center;
   background-color: #ef9c66;
+  max-width: 700px;
   height: 100%;
   box-shadow:
     0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -414,7 +432,7 @@ loading-indicator img {
 } */
 
 .colored-toast.swal2-icon-info {
-  background-color: #3fc3ee !important;
+  background-color:#ef9c66 !important;
 }
 
 .colored-toast.swal2-icon-success {

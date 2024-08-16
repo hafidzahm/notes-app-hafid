@@ -7,7 +7,7 @@ class FooterApp extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <div class="footer-app">
+        <div class="footer-app" >
             <h1 class="app-footer">Notes App, 2024</h1>
             <h2 class="app-desc">Abdul Hafizh Mahfudin</h2>
         </div>

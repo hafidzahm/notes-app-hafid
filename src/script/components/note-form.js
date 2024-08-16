@@ -7,8 +7,10 @@ class NoteForm extends HTMLElement {
   render() {
     this.innerHTML = `
         <div id="form-spin">
-        <form id="form">
-          <div class="form-title">
+        <form id="form"data-aos="fade-up"
+        data-aos-duration="2500">
+          <div class="form-title"data-aos="fade-up"
+          data-aos-duration="2500">
             <label for="title">Judul catatan</label>
             <input
               type="text"
@@ -22,14 +24,16 @@ class NoteForm extends HTMLElement {
           </div>
           
 
-          <div class="form-body">
+          <div class="form-body"data-aos="fade-up"
+          data-aos-duration="2500">
             <label for="note">Catatan</label>
-            <textarea cols="1000" name="body" id="body"></textarea>
+            <textarea name="body" id="body"></textarea>
           </div>
           <!-- checkbox note isArchived -->
-          <div class="checkbox-element">
+          <div class="checkbox-element hidden">
+          <input id="isArchived" type="checkbox"></input>
               <label for="isArchived">Arsipkan Catatan</label>
-              <input id="isArchived" type="checkbox"></input>
+              
           </div>
 
           <div class="form-button">
