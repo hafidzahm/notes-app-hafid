@@ -48,7 +48,8 @@ class NoteItem extends HTMLElement {
 
 
          
-          <div id=${this._id} class="container-list-note">
+          <div id=${this._id} class="container-list-note" data-aos="fade-up"
+          data-aos-duration="2500">
 
           <div class="container-note">
            <h1>${this._title}</h1>
