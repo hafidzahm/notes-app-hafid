@@ -106,6 +106,23 @@ label:has(+ input:focus-visible) {
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.archive-bar {
+  /* display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 100px;
+  gap: 10px;
+  justify-content: space-evenly;
+  justify-items: center; */
+  text-align: center;
+  align-content: space-evenly;
+  background-color: #c8cfa0;
+  font-size: 25px;
+  border-radius: 15px;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /* .app-name {
   justify-self: center;
 } */
@@ -246,7 +263,18 @@ textarea {
 .note-data {
   height: max-content;
 }
-
+.noteArchiveContainer {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  align-items: center;
+  gap: 5px;
+  background-color: gray;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .noteListContainer {
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
@@ -261,13 +289,14 @@ textarea {
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .container-list-note,
-.noteListContainer {
+.noteListContainer,
+.noteArchiveContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
 .container-list-note {
-  display: grid;
+  display: block;
   background-color: #c8cfa0;
   border-radius: 15px;
   gap: 2.5px;
@@ -288,6 +317,7 @@ textarea {
 }
 
 .delete-button {
+
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
