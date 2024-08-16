@@ -33,7 +33,7 @@ const home = async () => {
       // showResponseMessage(error);
       console.log(error)
       Swal.fire({
-        title: `ERROR`,
+        title: `Gagal menyimpan catatan. Cek internet anda, dan coba beberapa saat lagi`,
         icon: "warning",
         confirmButtonText: "OK",
       });
@@ -106,7 +106,17 @@ const home = async () => {
 
         console.log(responseJson);
         return responseJson.data;
+      })
+      .catch((error) => {
+        // showResponseMessage(error);
+        console.log(error);
+        Swal.fire({
+          title: `ERROR`,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       });
+      
   };
 
   const getAllNotes = () => {
@@ -121,6 +131,15 @@ const home = async () => {
       .then((responseJson) => {
         const { data: notes } = responseJson;
         return Promise.resolve(notes);
+      })
+      .catch((error) => {
+        // showResponseMessage(error);
+        console.log(error);
+        Swal.fire({
+          title: `Gagal menyajikan catatan. Cek internet anda, dan cek beberapa saat lagi`,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
       });
   };
 
@@ -147,6 +166,7 @@ const home = async () => {
       method: "DELETE",
     })
       .then((response) => {
+        localStorage.setItem('NOTE_DELETE', JSON.stringify({success: true}));
         return response.json();
       })
       .then((responseJson) => {
@@ -163,7 +183,7 @@ const home = async () => {
         // showResponseMessage(error);
         console.log(error);
         Swal.fire({
-          title: `ERROR`,
+          title: `Catatan gagal dihapus. Cek internet Anda, dan coba beberapa saat lagi`,
           icon: "warning",
           confirmButtonText: "OK",
         });
@@ -196,13 +216,13 @@ const home = async () => {
     } catch (error) {
       console.error("error adding note:", error);
       Swal.fire({
-        title: `ERROR`,
+        title: `ERROReeeeeeeeee`,
         icon: "warning",
         confirmButtonText: "OK",
       });
     }
     notes.push(noteObject);
-    if (notes.push(noteObject)) {
+    if (await addNoteApi(noteObject)) {
       localStorage.setItem('NOTE_ADD', JSON.stringify({success: true}));
     }
     document.dispatchEvent(new Event(RENDER_EVENT));
@@ -278,7 +298,7 @@ Swal.fire({
   },
 }).then((result) => {
   if (result.isConfirmed) {
-    localStorage.setItem('NOTE_SAVE', JSON.stringify({success: true}));
+    
     const noteTarget = findNoteTarget(noteId);
     deleteNoteApi(noteId);
    if (noteTarget === -1) return;
@@ -444,7 +464,7 @@ Swal.fire({
     }, 500);
 
     //toastmsg-after-reload-DELETE
-    const alertDelete = JSON.parse(localStorage.getItem('NOTE_SAVE'));
+    const alertDelete = JSON.parse(localStorage.getItem('NOTE_DELETE'));
     const alertAdd = JSON.parse(localStorage.getItem('NOTE_ADD'));
     const alertUnarchive = JSON.parse(localStorage.getItem('NOTE_UNARCHIVE'));
     const alertArchive = JSON.parse(localStorage.getItem('NOTE_ARCHIVE'));
@@ -471,7 +491,7 @@ Swal.fire({
         })
       })()
 
-      localStorage.setItem('NOTE_SAVE', JSON.stringify({success: false})) 
+      localStorage.setItem('NOTE_DELETE', JSON.stringify({success: false})) 
     }
 
     if(alertAdd!==null &&  alertAdd.success) {
@@ -551,7 +571,8 @@ Swal.fire({
       formValidation();
       await addNote();
 
-      window.location.reload();
+      if(addNote()) 
+        {window.location.reload()}
       noteForm.reset();
     });
   });

@@ -1,4 +1,4 @@
-
+import Swal from 'sweetalert2'
 class UnarchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -48,7 +48,7 @@ class UnarchiveButton extends HTMLElement {
       } catch (error) {
         // showResponseMessage(error);
         Swal.fire({
-          title: `GAGAL MEMBUANG ARSIP`,
+          title: `Gagal membuang arsip. Cek internet anda, dan coba beberapa saat lagi`,
           icon: "warning",
           confirmButtonText: "OK",
         });

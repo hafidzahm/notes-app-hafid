@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 class ArchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -44,7 +45,7 @@ class ArchiveButton extends HTMLElement {
       } catch (error) {
         // showResponseMessage(error);
         Swal.fire({
-          title: `GAGAL MENGARSIPKAN CATATAN`,
+          title: `Gagal mengarsipkan catatan. Cek internet anda, dan coba beberapa saat lagi.`,
           icon: "warning",
           confirmButtonText: "OK",
         });
