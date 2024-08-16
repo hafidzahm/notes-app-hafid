@@ -2,7 +2,7 @@ import "../components/index.js";
 import dummies from "../data/local/notes.js";
 import formValidation from "../components/form-validation.js";
 import buttonState from "../components/button-state.js";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 // import notes from "../data/local/notes.js";
 // import "../data/api.js"
 //
@@ -31,7 +31,7 @@ const home = async () => {
       return responseJson;
     } catch (error) {
       // showResponseMessage(error);
-      console.log(error)
+      console.log(error);
       Swal.fire({
         title: `Gagal menyimpan catatan. Cek internet anda, dan coba beberapa saat lagi`,
         icon: "warning",
@@ -85,7 +85,7 @@ const home = async () => {
     } catch (error) {
       // showResponseMessage(error);
       Swal.fire({
-        title: `ERROR`,
+        title: `Gagal menyimpan catatan. Cek internet anda, dan coba beberapa saat lagi`,
         icon: "warning",
         confirmButtonText: "OK",
       });
@@ -111,12 +111,11 @@ const home = async () => {
         // showResponseMessage(error);
         console.log(error);
         Swal.fire({
-          title: `ERROR`,
+          title: `Gagal menyajikan catatan. Cek internet anda, dan tunggu beberapa saat`,
           icon: "warning",
           confirmButtonText: "OK",
         });
       });
-      
   };
 
   const getAllNotes = () => {
@@ -134,7 +133,7 @@ const home = async () => {
       })
       .catch((error) => {
         // showResponseMessage(error);
-        console.log(error);
+        // console.log(error);
         Swal.fire({
           title: `Gagal menyajikan catatan. Cek internet anda, dan cek beberapa saat lagi`,
           icon: "warning",
@@ -166,7 +165,7 @@ const home = async () => {
       method: "DELETE",
     })
       .then((response) => {
-        localStorage.setItem('NOTE_DELETE', JSON.stringify({success: true}));
+        localStorage.setItem("NOTE_DELETE", JSON.stringify({ success: true }));
         return response.json();
       })
       .then((responseJson) => {
@@ -175,10 +174,8 @@ const home = async () => {
         getAllNotes();
         getNoteArchivedApi();
         window.location.reload();
-        
       })
 
-      
       .catch((error) => {
         // showResponseMessage(error);
         console.log(error);
@@ -207,6 +204,9 @@ const home = async () => {
     );
     try {
       const response = await addNoteApi(noteObject);
+      if (response) {
+        localStorage.setItem("NOTE_ADD", JSON.stringify({ success: true }));
+      }
 
       const responseId = response.data.id;
       console.log(responseId, isArchived);
@@ -215,16 +215,14 @@ const home = async () => {
       }
     } catch (error) {
       console.error("error adding note:", error);
-      Swal.fire({
-        title: `ERROReeeeeeeeee`,
-        icon: "warning",
-        confirmButtonText: "OK",
-      });
+      // Swal.fire({
+      //   title: `ERROReeeeeeeeee`,
+      //   icon: "warning",
+      //   confirmButtonText: "OK",
+      // });
     }
     notes.push(noteObject);
-    if (await addNoteApi(noteObject)) {
-      localStorage.setItem('NOTE_ADD', JSON.stringify({success: true}));
-    }
+
     document.dispatchEvent(new Event(RENDER_EVENT));
   }
 
@@ -267,7 +265,6 @@ const home = async () => {
     if (!noteObject.isArchived) {
       const archiveButton = document.createElement("archive-button");
       archiveButton.addEventListener("note-archive", (event) => {
-      
         addNoteArchivedApi();
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
@@ -275,7 +272,6 @@ const home = async () => {
     } else {
       const unarchiveButton = document.createElement("unarchive-button");
       unarchiveButton.addEventListener("note-unarchive", (event) => {
- 
         unarchiveNoteApi();
       });
       const buttonContainer = noteVariabel.querySelector("button-container");
@@ -286,64 +282,42 @@ const home = async () => {
   }
 
   async function deleteNote(noteId) {
-Swal.fire({
-  title: 'Kamu yakin ingin menghapus catatan?',
-  showDenyButton: true,
-  confirmButtonText: 'Iya',
-  denyButtonText: 'Tidak',
-  customClass: {
-    actions: 'my-actions',
-    confirmButton: 'order-2',
-    denyButton: 'order-3',
-  },
-}).then((result) => {
-  if (result.isConfirmed) {
-    
-    const noteTarget = findNoteTarget(noteId);
-    deleteNoteApi(noteId);
-   if (noteTarget === -1) return;
-   notes.splice(noteTarget, 1);
-   
-
-
-
-  } else if (result.isDenied) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'bottom-end',
-      iconColor: 'white',
+    Swal.fire({
+      title: "Kamu yakin ingin menghapus catatan?",
+      showDenyButton: true,
+      confirmButtonText: "Iya",
+      denyButtonText: "Tidak",
       customClass: {
-        popup: 'colored-toast',
+        actions: "my-actions",
+        confirmButton: "order-2",
+        denyButton: "order-3",
       },
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-    })
-    ;(async () => {
-      await Toast.fire({
-        icon: 'info',
-        title: 'Catatan tidak jadi dihapus',
-      })
-    })()
-
-
-
-  }
-})
-    
-
-
-
-
-
-
-
-
-
-
-  
-
-
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const noteTarget = findNoteTarget(noteId);
+        deleteNoteApi(noteId);
+        if (noteTarget === -1) return;
+        notes.splice(noteTarget, 1);
+      } else if (result.isDenied) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          iconColor: "white",
+          customClass: {
+            popup: "colored-toast",
+          },
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
+        (async () => {
+          await Toast.fire({
+            icon: "info",
+            title: "Catatan tidak jadi dihapus",
+          });
+        })();
+      }
+    });
   }
 
   function findNoteTarget(noteId) {
@@ -434,7 +408,7 @@ Swal.fire({
         document.querySelector("#note-list-container").append(noteElement);
       });
     } catch (error) {
-      console.error("error fetching notes:", error);
+      // console.error("error fetching notes:", error);
       Swal.fire({
         title: "Mohon periksa jaringan internet Anda",
         icon: "warning",
@@ -449,7 +423,7 @@ Swal.fire({
         document.querySelector("#note-archive-container").append(noteElement);
       });
     } catch (error) {
-      console.error("error fetching notes:", error);
+      // console.error("error fetching notes:", error);
       Swal.fire({
         title: "Mohon periksa jaringan internet Anda",
         icon: "warning",
@@ -464,105 +438,105 @@ Swal.fire({
     }, 500);
 
     //toastmsg-after-reload-DELETE
-    const alertDelete = JSON.parse(localStorage.getItem('NOTE_DELETE'));
-    const alertAdd = JSON.parse(localStorage.getItem('NOTE_ADD'));
-    const alertUnarchive = JSON.parse(localStorage.getItem('NOTE_UNARCHIVE'));
-    const alertArchive = JSON.parse(localStorage.getItem('NOTE_ARCHIVE'));
+    const alertDelete = JSON.parse(localStorage.getItem("NOTE_DELETE"));
+    const alertAdd = JSON.parse(localStorage.getItem("NOTE_ADD"));
+    const alertUnarchive = JSON.parse(localStorage.getItem("NOTE_UNARCHIVE"));
+    const alertArchive = JSON.parse(localStorage.getItem("NOTE_ARCHIVE"));
 
-
-
-    if(alertDelete!==null &&  alertDelete.success) {
+    if (alertDelete !== null && alertDelete.success) {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-end',
-        iconColor: 'white',
+        position: "bottom-end",
+        iconColor: "white",
         customClass: {
-          popup: 'colored-toast',
+          popup: "colored-toast",
         },
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-      })
-      
-      ;(async () => {
-        await Toast.fire({
-          icon: 'success',
-          title: 'Catatan berhasil dihapus',
-        })
-      })()
+      });
 
-      localStorage.setItem('NOTE_DELETE', JSON.stringify({success: false})) 
+      (async () => {
+        await Toast.fire({
+          icon: "success",
+          title: "Catatan berhasil dihapus",
+        });
+      })();
+
+      localStorage.setItem("NOTE_DELETE", JSON.stringify({ success: false }));
     }
 
-    if(alertAdd!==null &&  alertAdd.success) {
+    if (alertAdd !== null && alertAdd.success) {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-end',
-        iconColor: 'white',
+        position: "bottom-end",
+        iconColor: "white",
         customClass: {
-          popup: 'colored-toast',
+          popup: "colored-toast",
         },
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-      })
-      
-      ;(async () => {
-        await Toast.fire({
-          icon: 'success',
-          title: 'Catatan berhasil ditambahkan',
-        })
-      })()
+      });
 
-      localStorage.setItem('NOTE_ADD', JSON.stringify({success: false})) 
+      (async () => {
+        await Toast.fire({
+          icon: "success",
+          title: "Catatan berhasil ditambahkan",
+        });
+      })();
+
+      localStorage.setItem("NOTE_ADD", JSON.stringify({ success: false }));
     }
 
-    if(alertUnarchive!==null &&  alertUnarchive.success) {
+    if (alertUnarchive !== null && alertUnarchive.success) {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-end',
-        iconColor: 'white',
+        position: "bottom-end",
+        iconColor: "white",
         customClass: {
-          popup: 'colored-toast',
+          popup: "colored-toast",
         },
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-      })
-      
-      ;(async () => {
-        await Toast.fire({
-          icon: 'success',
-          title: 'Catatan berhasil dikeluarkan dari Arsip',
-        })
-      })()
+      });
 
-      localStorage.setItem('NOTE_UNARCHIVE', JSON.stringify({success: false})) 
+      (async () => {
+        await Toast.fire({
+          icon: "success",
+          title: "Catatan berhasil dikeluarkan dari Arsip",
+        });
+      })();
+
+      localStorage.setItem(
+        "NOTE_UNARCHIVE",
+        JSON.stringify({ success: false }),
+      );
     }
 
-    if(alertArchive!==null &&  alertArchive.success) {
+    if (alertArchive !== null && alertArchive.success) {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-end',
-        iconColor: 'white',
+        position: "bottom-end",
+        iconColor: "white",
         customClass: {
-          popup: 'colored-toast',
+          popup: "colored-toast",
         },
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
-      })
-      
-      ;(async () => {
-        await Toast.fire({
-          icon: 'success',
-          title: 'Catatan berhasil dipindahkan ke Arsip',
-        })
-      })()
+      });
 
-      localStorage.setItem('NOTE_ARCHIVE', JSON.stringify({success: false})) 
+      (async () => {
+        await Toast.fire({
+          icon: "success",
+          title: "Catatan berhasil dipindahkan ke Arsip",
+        });
+      })();
+
+      localStorage.setItem("NOTE_ARCHIVE", JSON.stringify({ success: false }));
     }
-    
 
     const noteForm = document.getElementById("form");
 
@@ -571,8 +545,7 @@ Swal.fire({
       formValidation();
       await addNote();
 
-      if(addNote()) 
-        {window.location.reload()}
+      window.location.reload();
       noteForm.reset();
     });
   });

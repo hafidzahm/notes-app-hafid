@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 class UnarchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -23,7 +23,7 @@ class UnarchiveButton extends HTMLElement {
   handleUnarchive() {
     const baseUrl = "https://notes-api.dicoding.dev/v2";
     const id = this.parentElement.parentElement.getAttribute("id");
-    console.log("UNARCHIVE-BUTTON CLICKED", id)
+    console.log("UNARCHIVE-BUTTON CLICKED", id);
     const unarchiveNoteApi = async (noteId) => {
       try {
         const options = {
@@ -37,12 +37,15 @@ class UnarchiveButton extends HTMLElement {
           options,
         );
         const responseJson = await response.json();
-        
+
         console.log(responseJson);
         // showResponseMessage(responseJson.message);
         window.location.reload();
         if (response) {
-          localStorage.setItem('NOTE_UNARCHIVE', JSON.stringify({success: true}));
+          localStorage.setItem(
+            "NOTE_UNARCHIVE",
+            JSON.stringify({ success: true }),
+          );
         }
         return responseJson;
       } catch (error) {
@@ -55,7 +58,9 @@ class UnarchiveButton extends HTMLElement {
       }
     };
     unarchiveNoteApi(id);
-    const showResponseMessage = (message = "Check your internet connection") => {
+    const showResponseMessage = (
+      message = "Check your internet connection",
+    ) => {
       alert(message);
     };
   }

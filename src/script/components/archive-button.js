@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 class ArchiveButton extends HTMLElement {
   constructor() {
     super();
@@ -17,11 +17,10 @@ class ArchiveButton extends HTMLElement {
     archiveButton.removeEventListener("click", this.handleArchive.bind(this));
   }
 
- handleArchive() {
-  
+  handleArchive() {
     const baseUrl = "https://notes-api.dicoding.dev/v2";
     const id = this.parentElement.parentElement.getAttribute("id");
-    console.log("ARCHIVE-BUTTON CLICKED", id)
+    console.log("ARCHIVE-BUTTON CLICKED", id);
     const addNoteArchivedApi = async (noteId) => {
       try {
         const options = {
@@ -39,7 +38,10 @@ class ArchiveButton extends HTMLElement {
         // showResponseMessage(responseJson.message);
         window.location.reload();
         if (response) {
-          localStorage.setItem('NOTE_ARCHIVE', JSON.stringify({success: true}));
+          localStorage.setItem(
+            "NOTE_ARCHIVE",
+            JSON.stringify({ success: true }),
+          );
         }
         return responseJson;
       } catch (error) {
@@ -52,7 +54,9 @@ class ArchiveButton extends HTMLElement {
       }
     };
     addNoteArchivedApi(id);
-    const showResponseMessage = (message = "Check your internet connection") => {
+    const showResponseMessage = (
+      message = "Check your internet connection",
+    ) => {
       alert(message);
     };
   }
