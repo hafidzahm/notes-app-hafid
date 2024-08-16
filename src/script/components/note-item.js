@@ -10,7 +10,7 @@ class NoteItem extends HTMLElement {
     super();
     this._id = this.getAttribute("id");
     this._title = this.getAttribute("title");
-    this._createdAt = this.getAttribute("createdat");
+    this._createdAt = new Date().toLocaleString('id-ID');
     this._body = this.getAttribute("body");
     this._isArchived = this.getAttribute("isarchived");
   }
@@ -55,9 +55,9 @@ class NoteItem extends HTMLElement {
            <h1>${this._title}</h1>
            <h3>                        
           Dibuat pada tanggal:
-          <h3>${this.getAttribute("createdat")}</h3>
+          <h3>${this._createdAt}</h3>
             <h2>${this._body}</h2>
-            <p>${this.getAttribute("isarchived")}</p>
+            <p class="hidden">${this.getAttribute("isarchived")}</p>
           </div>
 
           <div class="button-container">
