@@ -4,8 +4,8 @@ import formValidation from "../components/form-validation.js";
 import buttonState from "../components/button-state.js";
 import Swal from "sweetalert2";
 
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
 // import notes from "../data/local/notes.js";
 // import "../data/api.js"
 //

@@ -319,7 +319,6 @@ textarea {
 }
 
 .delete-button {
-
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
@@ -358,7 +357,7 @@ h1 {
   display: block;
   font-size: 18px;
   position: relative;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
 
@@ -422,7 +421,10 @@ loading-indicator img {
   background-color: #a5dc86 !important;
 }
 
-
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 @media screen and (min-width: 1024px) {
   .noteListContainer,
   .noteArchiveContainer {

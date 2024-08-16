@@ -1,12 +1,12 @@
 class ArchiveTitle extends HTMLElement {
-    constructor() {
-      super();
-  
-      this.render();
-    }
-  
-    render() {
-      this.innerHTML = `
+  constructor() {
+    super();
+
+    this.render();
+  }
+
+  render() {
+    this.innerHTML = `
           
           <div class="archive-bar" data-aos="fade-up"
           data-aos-duration="2500">
@@ -14,8 +14,7 @@ class ArchiveTitle extends HTMLElement {
           </div>
           
           `;
-    }
   }
-  
-  customElements.define("archive-title", ArchiveTitle);
-  
+}
+
+customElements.define("archive-title", ArchiveTitle);
