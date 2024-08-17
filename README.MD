@@ -1,3 +1,3 @@
-body lewat batas
-hidden isArchive
-TYPE TANGGAL
+body lewat batas----FIXED
+hidden isArchive-----FIXED
+TYPE TANGGAL-----FIXED
